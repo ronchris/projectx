@@ -1,0 +1,23 @@
+.input[type=text] {
+    width: 500px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+input[type=text]:focus {
+    width: 100%;
+}
+.top-bar input {
+    width: 350px !important;
+    margin-right: 1rem;
+}
+.top-bar-right {
+    padding-top: 12px;
+}
+.map {
+	height: 400px;
+	width: 400px;
+	background-color: #eee;
+}
+#search-results {
+	background: white;
+}
