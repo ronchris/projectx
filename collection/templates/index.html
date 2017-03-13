@@ -25,7 +25,7 @@
 <div class="row small-up-1 large-up-3">
 	{% for destination in destinations %}
 	<div class="column">
-		<img class="thumbnail" src="http://placehold.it/300x400">
+		<img class="thumbnail" src="/media/{{ destination.image }}" width="370" height="280">
 		<h5>
 			<a href="{% url 'destination_detail' slug=destination.slug %}">
             	{{ destination.name }}
@@ -39,6 +39,7 @@
 
 <hr>
 
+<!--
 <div class="row column text-center">
 	<h2>Recommended Itineraries</h2>
 	<hr>
@@ -72,4 +73,5 @@
 </div>
 
 <hr>
+-->
 {% endblock content %}

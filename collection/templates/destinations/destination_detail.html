@@ -17,27 +17,43 @@
 	</ul>
 </div>
 
-<hr>
-
 <div class="row destination">
 	<div class="large-8 columns">
-		<img class="thumbnail" src="http://placehold.it/300x400">
+		{% for upload in uploads %}
+			<img class="thumbnail" src="{{ upload.image.url }}" alt="" height="300" width="300" />
+		{% endfor %}
+		
+		<img class="thumbnail" src="/media/{{ destination.image }}" height="300" width="300">
 		<h5>{{ destination.name }}</h5>
 		<h7 class="address">{{ destination.address }}</h7>
 		<p class="description">{{ destination.description }}</p>
+		<p class="coords">{{ destination.coords }}</p>
+		
 	<!--	<a href="#" class="button expanded">Buy</a>-->
 	</div>
 	<div class="large-4 columns">
 		<div class="map"></div>
+		<div>
+			<h6>Features</h6>
+			<p class="features">{{ destination.features }}</p>
+		</div>
+		<div>
+			<h6>Activities</h6>
+			<p class="activities">{{ destination.activities }}</p>
+		</div>
+		<div>
+			<h6>Amenities & Miscellaneous</h6>
+			<p class="misc">{{ destination.misc }}</p>
+		</div>
 	</div>
 </div>
 
-<hr>
-
+<!--
 <div class="row column text-center">
 	<h2>Recommended Itineraries</h2>
 	<hr>
 </div>
+-->
 
-<hr>
+
 {% endblock content %}

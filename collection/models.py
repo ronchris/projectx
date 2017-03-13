@@ -11,5 +11,36 @@ class Destination(models.Model):
 	features = models.TextField()
 	activities = models.TextField()
 	misc = models.TextField()
+	coords = models.TextField()
 	slug = models.SlugField(unique=True)
+	image = models.ImageField()
 	user = models.OneToOneField(User, blank=True, null=True)
+	
+	def __str__(self):
+		return self.name + ' - ' + self.address
+
+def get_image_path(instance, filename):
+	return '/'.join(['destination_images', instance.destination.slug, filename])
+
+class Upload(models.Model):
+	destination = models.ForeignKey(Destination, related_name="uploads")
+	image = models.ImageField(upload_to=get_image_path)
+
+class Muni(models.Model):
+	name = models.CharField(max_length=255)
+	address = models.CharField(max_length=255, blank=True, null=True)
+	accessibility = models.CharField(max_length=255, blank=True, null=True)
+	description = models.TextField()
+	safety_rating = models.CharField(max_length=255, blank=True, null=True)
+	population = models.CharField(max_length=255, blank=True, null=True)
+	known_for = models.CharField(max_length=255, blank=True, null=True)
+	misc = models.TextField(blank=True, null=True)
+	activities = models.TextField(blank=True, null=True)
+	features = models.TextField(blank=True, null=True)
+	coords = models.CharField(max_length=255, blank=True, null=True)
+	slug = models.SlugField(unique=True)
+	image = models.ImageField(blank=True, null=True)
+	
+	def __str__(self):
+		return self.name
+	
