@@ -1,10 +1,42 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+	
 
+class Province(models.Model):
+	name = models.CharField(max_length=255)
+	address = models.CharField(max_length=255, blank=True, null=True)
+	description = models.TextField()
+	coords = models.CharField(max_length=255, blank=True, null=True)
+	slug = models.SlugField(unique=True)
+	image = models.ImageField(blank=True, null=True)
+	
+	def __str__(self):
+		return self.name
+	
+class Muni(models.Model):
+	name = models.CharField(max_length=255)
+	#	province = models.ForeignKey(Province, on_delete=models.CASCADE)
+	address = models.CharField(max_length=255, blank=True, null=True)
+	accessibility = models.CharField(max_length=255, blank=True, null=True)
+	description = models.TextField()
+	safety_rating = models.CharField(max_length=255, blank=True, null=True)
+	population = models.CharField(max_length=255, blank=True, null=True)
+	known_for = models.CharField(max_length=255, blank=True, null=True)
+	misc = models.TextField(blank=True, null=True)
+	activities = models.TextField(blank=True, null=True)
+	features = models.TextField(blank=True, null=True)
+	coords = models.CharField(max_length=255, blank=True, null=True)
+	slug = models.SlugField(unique=True)
+	image = models.ImageField(blank=True, null=True)
+	
+	def __str__(self):
+		return self.name
+	
 class Destination(models.Model):
 	name = models.CharField(max_length=255)
 	municipality = models.CharField(max_length=255)
+	# muni = models.ForeignKey(Muni, on_delete=models.CASCADE)
 	province = models.CharField(max_length=255)
 	address = models.CharField(max_length=255)
 	description = models.TextField()
@@ -26,21 +58,3 @@ class Upload(models.Model):
 	destination = models.ForeignKey(Destination, related_name="uploads")
 	image = models.ImageField(upload_to=get_image_path)
 
-class Muni(models.Model):
-	name = models.CharField(max_length=255)
-	address = models.CharField(max_length=255, blank=True, null=True)
-	accessibility = models.CharField(max_length=255, blank=True, null=True)
-	description = models.TextField()
-	safety_rating = models.CharField(max_length=255, blank=True, null=True)
-	population = models.CharField(max_length=255, blank=True, null=True)
-	known_for = models.CharField(max_length=255, blank=True, null=True)
-	misc = models.TextField(blank=True, null=True)
-	activities = models.TextField(blank=True, null=True)
-	features = models.TextField(blank=True, null=True)
-	coords = models.CharField(max_length=255, blank=True, null=True)
-	slug = models.SlugField(unique=True)
-	image = models.ImageField(blank=True, null=True)
-	
-	def __str__(self):
-		return self.name
-	

@@ -31,8 +31,24 @@
             	{{ destination.name }}
         	</a>
 		</h5>
-		<p>{{ destination.address }}</p>
+		<p><a href="/munis/{{ destination.municipality }}">{{ destination.municipality }}</a>, <a href="/provinces/{{ destination.province }}">{{ destination.province }}</a></p>
 		<a href="#" class="button expanded">Buy</a>
+	</div>
+	{% endfor %}
+</div>
+
+<div class="row small-up-1 large-up-3">
+	{% for muni in munis %}
+	<div class="column">
+		<a href="{% url 'muni_detail' slug=muni.slug %}">{{ muni.name }}</a>
+	</div>
+	{% endfor %}
+</div>
+
+<div class="row small-up-1 large-up-3">
+	{% for province in provinces %}
+	<div class="column">
+		<a href="{% url 'province_detail' slug=province.slug %}">{{ province.name }}</a>
 	</div>
 	{% endfor %}
 </div>
@@ -74,4 +90,5 @@
 
 <hr>
 -->
+
 {% endblock content %}

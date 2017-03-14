@@ -1,15 +1,16 @@
 from django.shortcuts import render
-from collection.models import Destination
-from collection.models import Muni
+from collection.models import Destination, Muni, Province
 from django.views.generic import View
 from django.db.models import Q
 
-def index(request): 
+
+class IndexView(View):
 	
-	destinations = Destination.objects.all()
-		
-	return render(request, 'index.html', {
-		'destinations': destinations,
+	def get(self, request):
+		destinations = Destination.objects.all()
+		munis = Muni.objects.all()
+		return render(request, 'index.html', {
+		'destinations': destinations, 'munis': munis,
 	})
 
 def destination_detail(request, slug):
@@ -22,6 +23,20 @@ def destination_detail(request, slug):
 		
 	})
 
+def muni_detail(request, slug):
+	muni = Muni.objects.get(slug=slug)
+	
+	return render(request, 'munis/muni_detail.html', {
+	'muni': muni,
+	})
+
+def province_detail(request, slug):
+	province = Province.objects.get(slug=slug)
+	
+	return render(request, 'provinces/province_detail.html', {
+	'province': province,
+	})
+
 class DestinationSearchView(View):
 
     def get(self, request):
@@ -31,10 +46,4 @@ class DestinationSearchView(View):
 			return render(request, 'ajax_search.html', {'destinations': destination})
 		return render(request, 'ajax_search.html', {})
 
-def muni_detail(request, slug):
-	muni = Muni.objects.get(slug=slug)
-	
-	return render(request, 'munis/muni_detail.html', {
-	'muni': muni,
-	})
 

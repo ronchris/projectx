@@ -1,5 +1,5 @@
 from django.contrib import admin
-from collection.models import Destination, Muni, Upload
+from collection.models import Destination, Muni, Province, Upload
 
 # set up automated slug creation
 class DestinationAdmin(admin.ModelAdmin):
@@ -24,3 +24,11 @@ prepopulated_fields = {'slug': ('name',)}
 
 # and register it
 admin.site.register(Muni, MuniAdmin)
+
+class ProvinceAdmin(admin.ModelAdmin):
+    model = Muni
+list_display = ('name', 'address', 'description', 'coords',  'slug', 'image')
+prepopulated_fields = {'slug': ('name',)}
+
+# and register it
+admin.site.register(Province, ProvinceAdmin)

@@ -1,5 +1,5 @@
 {% for destination in destinations %}
-    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province }} - {{ destination.municipality }} - {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
+    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province }} - {{ destination.municipality }}, {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
 {% empty %}
 	<li style="padding:5px; color: red">No results</li>
 {% endfor %}

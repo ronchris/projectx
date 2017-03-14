@@ -20,11 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-	url(r'^$', views.index, name='home'),
+	url(r'^$', views.IndexView.as_view(), name='home'),
 	url(r'^destinations/(?P<slug>[-\w]+)/$', views.destination_detail, 
         name='destination_detail'),
 	url(r'^munis/(?P<slug>[-\w]+)/$', views.muni_detail, 
         name='muni_detail'),
+	url(r'^provinces/(?P<slug>[-\w]+)/$', views.province_detail, 
+        name='province_detail'),
 	url(r'^accounts/', 
         include('registration.backends.simple.urls')),
 	 url(
