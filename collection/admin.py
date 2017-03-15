@@ -26,7 +26,7 @@ prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Muni, MuniAdmin)
 
 class ProvinceAdmin(admin.ModelAdmin):
-    model = Muni
+    model = Province
 list_display = ('name', 'address', 'description', 'coords',  'slug', 'image')
 prepopulated_fields = {'slug': ('name',)}
 

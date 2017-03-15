@@ -7,7 +7,7 @@ from django.db.models import Q
 class IndexView(View):
 	
 	def get(self, request):
-		destinations = Destination.objects.all()
+		destinations = Destination.objects.all()[:3]
 		munis = Muni.objects.all()
 		return render(request, 'index.html', {
 		'destinations': destinations, 'munis': munis,

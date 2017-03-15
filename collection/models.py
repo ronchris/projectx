@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
-	
+
 
 class Province(models.Model):
 	name = models.CharField(max_length=255)
@@ -16,7 +16,7 @@ class Province(models.Model):
 	
 class Muni(models.Model):
 	name = models.CharField(max_length=255)
-	#	province = models.ForeignKey(Province, on_delete=models.CASCADE)
+# province = models.ForeignKey(Province, on_delete=models.CASCADE)
 	address = models.CharField(max_length=255, blank=True, null=True)
 	accessibility = models.CharField(max_length=255, blank=True, null=True)
 	description = models.TextField()
@@ -36,7 +36,7 @@ class Muni(models.Model):
 class Destination(models.Model):
 	name = models.CharField(max_length=255)
 	municipality = models.CharField(max_length=255)
-	# muni = models.ForeignKey(Muni, on_delete=models.CASCADE)
+	muni = models.ForeignKey(Muni, on_delete=models.CASCADE)
 	province = models.CharField(max_length=255)
 	address = models.CharField(max_length=255)
 	description = models.TextField()

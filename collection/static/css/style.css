@@ -1,3 +1,6 @@
+* {
+	font-family: Gotham !important;
+}
 .destination {
 	padding: 25px 0 50px;
 }
@@ -24,9 +27,9 @@ input[type=text]:focus {
     background-color: #fff;
     position: absolute;
     top: 50px;
-    width: 800px;
+    width: 799px;
     z-index: 10;
-    left: 134px;
+    left: 140px;
     padding: 0;
 }
 .search--results--li {

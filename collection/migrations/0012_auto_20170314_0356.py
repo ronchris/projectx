@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='destination',
             name='muni',
-            field=models.ForeignKey(default=datetime.datetime(2017, 3, 14, 3, 56, 12, 5449, tzinfo=utc), on_delete=django.db.models.deletion.CASCADE, to='collection.Muni'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='collection.Muni'),
             preserve_default=False,
         ),
     ]
