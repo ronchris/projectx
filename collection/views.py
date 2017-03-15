@@ -42,7 +42,7 @@ class DestinationSearchView(View):
     def get(self, request):
 		search_text = request.GET.get('q')
 		if search_text:
-			destination = Destination.objects.filter(Q(province__istartswith=search_text)|Q(name__istartswith=search_text)|Q(municipality__istartswith=search_text)|Q(address__icontains=search_text)).order_by('name')
+			destination = Destination.objects.filter(Q(province__istartswith=search_text)|Q(name__istartswith=search_text)|Q(muni__name__istartswith=search_text)|Q(address__icontains=search_text)).order_by('name')
 			return render(request, 'ajax_search.html', {'destinations': destination})
 		return render(request, 'ajax_search.html', {})
 

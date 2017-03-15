@@ -1,54 +1,8 @@
 {% for destination in destinations %}
-    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province }} - {{ destination.municipality }}, {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
+    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province }} - {{ destination.muni.name }}, {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
 {% empty %}
 	<li style="padding:5px; color: red">No results</li>
 {% endfor %}
 
-<!--
-{% for muni in munis %}
-    <li class="search--results--li"><a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}</a> </li>
-{% empty %}
-
-{% endfor %}
--->
-
-
-<!--
-{% if destination == destination.province %}
-	{% for destination in destinations %}
-		<li class="search--results--li">
-			<a href="{% url 'destination_detail' slug=destination.slug %}"> 
-				{{ destination.municipality }}, {{ destination.province }} <i>({{ destination.province|length }} destinations) </i>
-			</a>
-		</li>
-	{% endfor %}
-{% elif destination == destination.municipality %}
-	{% for destination in destinations %}
-		<li class="search--results--li">
-			<a href="{% url 'destination_detail' slug=destination.slug %}"> 
-				{{ destination.municipality }} <i>({{ destination.municipality|length }} destinations) </i>
-			</a>
-		</li>
-	{% endfor %}
-{% elif destination == destination.name %}
-	{% for destination in destinations %}
-		<li class="search--results--li">
-			<a href="{% url 'destination_detail' slug=destination.slug %}"> 
-				{{ destination.name }}
-			</a>
-		</li>
-	{% endfor %}
-{% elif destination == destination.address %}
-	{% for destination in destinations %}
-		<li class="search--results--li">
-			<a href="{% url 'destination_detail' slug=destination.slug %}"> 
-				{{ destination.address }} 
-			</a>
-		</li>
-	{% endfor %}
-{% else %}
-	<li style="padding:5px; color: red">No results</li>
-{% endif %}
--->
 
 

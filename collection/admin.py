@@ -4,7 +4,7 @@ from collection.models import Destination, Muni, Province, Upload
 # set up automated slug creation
 class DestinationAdmin(admin.ModelAdmin):
     model = Destination
-list_display = ('name', 'municipality', 'province', 'address', 'description', 'features', 'activities', 'misc', 'coords',  'slug', 'user', 'image')
+list_display = ('name', 'muni', 'province', 'address', 'description', 'features', 'activities', 'misc', 'coords',  'slug', 'user', 'image')
 prepopulated_fields = {'slug': ('name',)}
 
 # and register it

@@ -31,7 +31,7 @@
             	{{ destination.name }}
         	</a>
 		</h5>
-		<p><a href="/munis/{{ destination.municipality }}">{{ destination.municipality }}</a>, <a href="/provinces/{{ destination.province }}">{{ destination.province }}</a></p>
+		<p><a href="{% url 'muni_detail' slug=destination.muni.slug %}">{{ destination.muni.name }}</a>, <a href="/provinces/{{ destination.province }}">{{ destination.province }}</a></p>
 		<a href="#" class="button expanded">Buy</a>
 	</div>
 	{% endfor %}
