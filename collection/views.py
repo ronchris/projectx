@@ -2,10 +2,7 @@ from django.shortcuts import render, redirect
 from collection.models import Destination, Muni, Province
 from django.views.generic import View
 from django.db.models import Q
-from django.template.defaultfilters import slugify
-from collection.forms import DestinationForm
-from django.contrib.auth.decorators import login_required
-from django.http import Http404
+
 
 class IndexView(View):
 	
