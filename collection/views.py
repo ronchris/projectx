@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from collection.models import Destination, Muni, Province
 from django.views.generic import View
 from django.db.models import Q
-
+from django.template.defaultfilters import slugify
+from collection.forms import DestinationForm
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 class IndexView(View):
 	
@@ -42,8 +45,10 @@ class DestinationSearchView(View):
     def get(self, request):
 		search_text = request.GET.get('q')
 		if search_text:
-			destination = Destination.objects.filter(Q(province__istartswith=search_text)|Q(name__istartswith=search_text)|Q(muni__name__istartswith=search_text)|Q(address__icontains=search_text)).order_by('name')
-			return render(request, 'ajax_search.html', {'destinations': destination})
+			destination = Destination.objects.filter(name__istartswith=search_text).order_by('name')
+			muni = Muni.objects.filter(name__istartswith=search_text).order_by('name')
+			province = Province.objects.filter(name__istartswith=search_text).order_by('name')
+			return render(request, 'ajax_search.html', {'destinations': destination,
+				'munis': muni, 'provinces':province})
 		return render(request, 'ajax_search.html', {})
-
 

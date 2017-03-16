@@ -1,8 +1,22 @@
+<!--
 {% for destination in destinations %}
-    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province }} - {{ destination.muni.name }}, {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
+    <li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.province.name }} - {{ destination.muni.name }}, {{ destination.name }}</a> <i>({{ destinations|length }} destination{{ destinations|length|pluralize }}) </i></li>
 {% empty %}
 	<li style="padding:5px; color: red">No results</li>
 {% endfor %}
+-->
 
+{% for destination in destinations %}
+    	<li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.name }}
+		</li>
+{% endfor %}
 
+{% for muni in munis %}
+		<li class="search--results--li"><a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination|length }} destination{{ muni.destination|length|pluralize }}) </i>
+		</li>
+{% endfor %}
 
+{% for province in provinces %}
+		<li class="search--results--li"><a href="{% url 'province_detail' slug=province.slug %}"> {{ province.name }}</a>
+		</li>
+{% endfor %}

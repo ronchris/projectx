@@ -36,7 +36,7 @@ class Muni(models.Model):
 class Destination(models.Model):
 	name = models.CharField(max_length=255)
 	muni = models.ForeignKey(Muni, on_delete=models.CASCADE)
-	province = models.CharField(max_length=255)
+	province = models.ForeignKey(Province, on_delete=models.CASCADE)
 	address = models.CharField(max_length=255)
 	description = models.TextField()
 	features = models.TextField()
@@ -56,4 +56,3 @@ def get_image_path(instance, filename):
 class Upload(models.Model):
 	destination = models.ForeignKey(Destination, related_name="uploads")
 	image = models.ImageField(upload_to=get_image_path)
-
