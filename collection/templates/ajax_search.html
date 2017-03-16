@@ -7,10 +7,12 @@
 -->
 
 {% for destination in destinations %}
-    	<li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> {{ destination.name }}
+    	<li class="search--results--li"><a href="{% url 'destination_detail' slug=destination.slug %}"> 
+				<img src="/media/{{ destination.image }}" height="40" width="40"/>
+				{{ destination.name }}
 		</li>
 {% endfor %}
-
+			
 {% for muni in munis %}
 		<li class="search--results--li"><a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination|length }} destination{{ muni.destination|length|pluralize }}) </i>
 		</li>

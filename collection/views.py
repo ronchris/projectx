@@ -33,8 +33,10 @@ def muni_detail(request, slug):
 def province_detail(request, slug):
 	province = Province.objects.get(slug=slug)
 	
+	munis = Muni.objects.all()
+	
 	return render(request, 'provinces/province_detail.html', {
-	'province': province,
+	'province': province, 'munis': munis
 	})
 
 class DestinationSearchView(View):
@@ -42,7 +44,7 @@ class DestinationSearchView(View):
     def get(self, request):
 		search_text = request.GET.get('q')
 		if search_text:
-			destination = Destination.objects.filter(name__istartswith=search_text).order_by('name')
+			destination = Destination.objects.filter(name__icontains=search_text).order_by('name')
 			muni = Muni.objects.filter(name__istartswith=search_text).order_by('name')
 			province = Province.objects.filter(name__istartswith=search_text).order_by('name')
 			return render(request, 'ajax_search.html', {'destinations': destination,

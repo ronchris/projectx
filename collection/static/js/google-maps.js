@@ -6,7 +6,7 @@ $(function() {
 		var latlng = new google.maps.LatLng(11.9283293, 120.23973360000002);
 
 		var options = {
-		zoom: 14,
+		zoom: 12,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.HYBRID
 		

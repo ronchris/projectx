@@ -13,42 +13,23 @@
 -->
 		
 		<img class="thumbnail" src="/media/{{ destination.image }}" height="300" width="300">
-		<h5>{{ muni.name }}</h5>
-		<h7 class="address">{{ muni.address }}</h7>
-		<p class="description">{{ muni.description }}</p>
-		<p class="coords">{{ muni.coords }}</p>
+		<h5>{{ province.name }}</h5>
+		<h7 class="address">{{ province.address }}</h7>
 		
 	<!--	<a href="#" class="button expanded">Buy</a>-->
 		<div class="row">
-			<div class="large-2 columns">
-				<h6>Accessible by</h6>
-				<p class="accessibility">{{ muni.accessibility }}</p>
-			</div>
-			<div class="large-2 columns">
-				<h6>Safety Ratings</h6>
-				<p class="safety_ratings">{{ muni.safety_rating }}</p>
-			</div>
-			<div class="large-2 columns end">
-				<h6>Population</h6>
-				<p class="population">{{ muni.population }}</p>
-			</div>
+			<p class="description">{{ province.description }}</p>
+			<p class="coords">{{ province.coords }}</p>
 		</div>
 	</div>
 	<div class="large-4 columns">
 		<div class="map"></div>
-		<div>
-			<h6>Features</h6>
-			<p class="features">{{ muni.features }}</p>
-		</div>
-		<div>
-			<h6>Activities</h6>
-			<p class="activities">{{ muni.activities }}</p>
-		</div>
-		<div>
-			<h6>Amenities & Miscellaneous</h6>
-			<p class="misc">{{ muni.misc }}</p>
-		</div>
 	</div>
+	
+	{% for muni in munis %}
+		<img src ="/media/{{ muni.image }}" />
+		<a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination|length }} destination{{ muni.destination|length|pluralize }}) </i>
+	{% endfor %}
 </div>
 
 <!--
