@@ -1,44 +1,44 @@
 {% for destination in destinations %}
-		{% if forloop.first %}
-		   		<li class="search--results--li--heading">
-						{{ destination.kind }}
-				</li>
-		{% endif %}
-    	<li class="search--results--li">
-				<a href="{% url 'destination_detail' slug=destination.slug %}"> 
-					<img src="/media/{{ destination.image }}" height="40" width="40"/>
-					{{ destination.name }}, {{ destination.muni }}, {{ destination.province }}
-				</a>
-		</li>
+	{% if forloop.first %}
+	<li class="search--results--li--heading">
+		{{ destination.kind }}
+	</li>
+	{% endif %}
+	<li class="search--results--li">
+		<a href="{% url 'destination_detail' slug=destination.slug %}"> 
+			<img src="/media/{{ destination.image }}" height="40" width="40" />
+			{{ destination.name }}, {{ destination.muni }}, {{ destination.province }}
+		</a>
+	</li>
 {% endfor %}
 			
 {% for muni in munis %}
-		{% if forloop.first %}
-		   		<li class="search--results--li--heading">
-						{{ muni.kind }}
-				</li>
-		{% endif %}
-		<li class="search--results--li">
-				<a href="{% url 'muni_detail' slug=muni.slug %}">
-						<img src="/media/{{ muni.image }}" height="40" width="40"/> 
-						{{ muni.name }}, {{ muni.province }}
-				</a> 
-				<i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
-		</li>
+	{% if forloop.first %}
+	<li class="search--results--li--heading">
+		{{ muni.kind }}
+	</li>
+	{% endif %}
+	<li class="search--results--li">
+		<a href="{% url 'muni_detail' slug=muni.slug %}">
+			<img src="/media/{{ muni.image }}" height="40" width="40" /> 
+				{{ muni.name }}, {{ muni.province }}
+		</a> 
+		<i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
+	</li>
 {% endfor %}
 
 {% for province in provinces %}
-		{% if forloop.first %}
-				<li class="search--results--li--heading">
-			  		{{ province.kind }}
-				</li>
-		{% endif %}
-				<li class="search--results--li">
-					<a href="{% url 'province_detail' slug=province.slug %}">
-							<img src="/media/{{ province.image }}" height="40" width="40"/>
-							{{ province.name }}
-					</a>
-				</li>
+	{% if forloop.first %}
+	<li class="search--results--li--heading">
+		{{ province.kind }}
+	</li>
+	{% endif %}
+	<li class="search--results--li">
+		<a href="{% url 'province_detail' slug=province.slug %}">
+			<img src="/media/{{ province.image }}" height="40" width="40" />
+				{{ province.name }}
+		</a>
+	</li>
 {% endfor %}
 
 
