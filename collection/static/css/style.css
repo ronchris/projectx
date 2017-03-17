@@ -11,9 +11,16 @@
 input[type=text]:focus {
     width: 100%;
 }
+.top-bar, .top-bar ul {
+	background-color: #ffffff;
+}
 .top-bar input {
     width: 800px !important;
     margin-right: 1rem;
+}
+.menu input {
+    margin-bottom: 0;
+    border: none;
 }
 .top-bar-right {
     padding-top: 12px;
@@ -52,4 +59,76 @@ input[type=text]:focus {
 }
 .coords {
 	visibility: hidden;
+}
+.hp--primary--container {
+	position: relative;
+}
+.hp--primary--gradient--bkgd {
+		text-align: right;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffb76b+0,ff7c00+66,ff7f04+100 */
+		background: #ffb76b; /* Old browsers */
+		background: -moz-linear-gradient(top, #ffb76b 0%, #ff7c00 66%, #ff7f04 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top, #ffb76b 0%,#ff7c00 66%,#ff7f04 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom, #ffb76b 0%,#ff7c00 66%,#ff7f04 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+	
+}
+.hp--primary--gradient--bkgd img {
+	width: 60%;
+	height:auto;
+}
+.text-center > h4 {
+	padding-top: 5%;
+	padding-bottom: 2%;
+	color: #687482;
+	font-weight: bold;
+}
+img.thumbnail {
+    border: none;
+    box-shadow: none;
+    display: inline-block;
+    line-height: 0;
+    max-width: 100%;
+	max-height: 240px;
+    transition: box-shadow .2s ease-out;
+    border-radius: 0;
+    margin-bottom: 1rem;
+}
+.top--destinations--row {
+	margin-bottom: 5%;
+}
+.top--destinations--row a{
+	color: #687482;
+	font-weight: bold;
+}
+
+
+/*footer styles*/
+.callout {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid rgba(10,10,10,.25);
+    border-radius: 0;
+    position: relative;
+}
+.callout.secondary {
+    background-color: #687482;
+}
+.footer--text {
+	color: #ffffff;
+}
+.footer--text h4{
+	font-weight: bold;
+}
+.footer--column .menu a, h6 {
+	color: #ffffff;
+}
+.footer--column .menu h6 {
+	padding-left: 16px;
+	font-weight: bold;
+}
+.menu>li>a {
+    display: block;
+    padding: .3rem 1rem;
+    line-height: 1;
 }
