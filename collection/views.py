@@ -7,15 +7,17 @@ from django.db.models import Q
 class IndexView(View):
 	
 	def get(self, request):
+		
 		destinations = Destination.objects.all()[:3]
 		munis = Muni.objects.all()
+		
 		return render(request, 'index.html', {
 		'destinations': destinations, 'munis': munis,
 	})
 
 def destination_detail(request, slug):
-	destination = Destination.objects.get(slug=slug)
 	
+	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
 	
 	return render(request, 'destinations/destination_detail.html', {
@@ -24,15 +26,17 @@ def destination_detail(request, slug):
 	})
 
 def muni_detail(request, slug):
+	
 	muni = Muni.objects.get(slug=slug)
+	destinations = muni.destination_set.all()
 	
 	return render(request, 'munis/muni_detail.html', {
-	'muni': muni,
+	'muni': muni, 'destinations': destinations
 	})
 
 def province_detail(request, slug):
-	province = Province.objects.get(slug=slug)
 	
+	province = Province.objects.get(slug=slug)
 	munis = Muni.objects.all()
 	
 	return render(request, 'provinces/province_detail.html', {

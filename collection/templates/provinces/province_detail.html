@@ -26,9 +26,9 @@
 		<div class="map"></div>
 	</div>
 	
-	{% for muni in munis %}
+	{% for muni in province.muni_set.all %}
 		<img src ="/media/{{ muni.image }}" />
-		<a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination|length }} destination{{ muni.destination|length|pluralize }}) </i>
+		<a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
 	{% endfor %}
 </div>
 
