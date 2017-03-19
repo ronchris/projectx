@@ -4,12 +4,12 @@
 		{{ destination.kind }}
 	</li>
 	{% endif %}
-	<li class="search--results--li">
-		<a href="{% url 'destination_detail' slug=destination.slug %}"> 
+	<a href="{% url 'destination_detail' slug=destination.slug %}"> 
+		<li class="search--results--li">
 			<img src="/media/{{ destination.image }}" height="40" width="40" />
-			{{ destination.name }}, {{ destination.muni }}, {{ destination.province }}
-		</a>
-	</li>
+			<span class="bold--research--text">{{ destination.name }}</span>, {{ destination.muni }}, {{ destination.province }}
+		</li>
+	</a>
 {% endfor %}
 			
 {% for muni in munis %}
@@ -18,13 +18,13 @@
 		{{ muni.kind }}
 	</li>
 	{% endif %}
-	<li class="search--results--li">
-		<a href="{% url 'muni_detail' slug=muni.slug %}">
+	<a href="{% url 'muni_detail' slug=muni.slug %}">
+		<li class="search--results--li">
 			<img src="/media/{{ muni.image }}" height="40" width="40" /> 
-				{{ muni.name }}, {{ muni.province }}
-		</a> 
-		<i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
-	</li>
+			<span class="bold--research--text">{{ muni.name }}</span>, {{ muni.province }}
+			<i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
+		</li>
+	</a>
 {% endfor %}
 
 {% for province in provinces %}
@@ -33,12 +33,12 @@
 		{{ province.kind }}
 	</li>
 	{% endif %}
-	<li class="search--results--li">
-		<a href="{% url 'province_detail' slug=province.slug %}">
+	<a href="{% url 'province_detail' slug=province.slug %}">
+		<li class="search--results--li">
 			<img src="/media/{{ province.image }}" height="40" width="40" />
-				{{ province.name }}
-		</a>
-	</li>
+			<span class="bold--research--text">{{ province.name }}</span>
+		</li>
+	</a>
 {% endfor %}
 
 

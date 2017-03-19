@@ -6,12 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>
 			{% block title %}
-				likana
+				tara na
 			{% endblock title %}
 		</title>
 		
 		<!-- stylesheets -->
 		<link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+		<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		
 		<!-- scripts -->
@@ -29,13 +30,13 @@
 			<div class="top-bar-left">
 				<ul class="menu" style="position: relative">
 					<li class="menu-text">
-						<a href="{% url 'home' %}">likana</a>
+						<a href="{% url 'home' %}">tara na</a>
 					</li>
 					<li><img src="http://www.mosms.ir/Images/search.png" height="20" width ="20" /></li>
 					<li>
 						<form action=""  method="get">
 							{% csrf_token %}
-      					<input id="destination-search" type="text" name="q" placeholder="Search by destination or location" autocomplete="off">
+      					<input id="destination-search" type="text" name="q" placeholder="Search by destination, municipality or province" autocomplete="off">
 						</form>
 					<li>
 					
@@ -69,7 +70,7 @@
 		<div class="callout large secondary">
 			<div class="row">
 				<div class="large-4 columns footer--text">
-					<h4>likana</h4>
+					<h4>tarana</h4>
 					<p>Project X is a Philippine-based social website for avid millennial travelers and adventure seekers where they can search and discover natural destinations, plan and share their experiences over the internet.</p>
 				</div>
 				<div class="large-2 columns footer--column">
@@ -82,7 +83,7 @@
 						<li><a href="#">Contact Us</a></li>
 					</ul>
 				</div>
-				<div class="large-2 columns  footer--column">
+				<div class="large-3 columns  footer--column">
 					<ul class="menu vertical">
 						<li><h6>Follow Us</h6></li>
 						<li><a href="#">Twitter</a></li>
@@ -90,9 +91,12 @@
 						<li><a href="#">Instagram</a></li>
 					</ul>
 				</div>
-				<div class="large-2 columns large-offset-2 columns  footer--column">
+				<div class="large-3 columns  footer--column last">
 					<ul class="menu vertical">
-						
+						<li><h6 class="last--h6">Don't want to miss a thing?</h6></li>
+						<li><p>Subscribe now to get weekly updates and news.</p></li>
+						<li><input type="text" placeholder="Type e-mail address" /></li>
+						<a href="#"><p class="email--subscribe--button">Subscribe</p></a>
 					</ul>
 				</div>
 			</div>
@@ -101,5 +105,6 @@
 		<script>
 		  $(document).foundation();
 		</script>
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     </body>
 </html>
