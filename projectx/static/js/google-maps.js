@@ -8,7 +8,7 @@ $(function() {
 		var options = {
 		zoom: 12,
 		center: latlng,
-		mapTypeId: google.maps.MapTypeId.HYBRID
+		mapTypeId: google.maps.MapTypeId.TERRAIN
 		
   	};
 	

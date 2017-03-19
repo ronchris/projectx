@@ -178,7 +178,7 @@ input[type=text]:focus {
 	font-size: 0.9vw;
 }
 .secondary--text--message {
-	font-size: 1vw !important;
+	font-size: 1.2vw !important;
 	line-height: 1.4em;
 	font-weight: normal;
 	margin-top: 3%;
