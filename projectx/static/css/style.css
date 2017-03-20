@@ -401,4 +401,11 @@ h6.destination--sub-heading {
 	font-size: 1vw;
 	margin-bottom: 2%;
 }
+ul.errorlist, .errorlist li, .errorlist{
+	display: none !important;
+}
 
+/*star ratings*/
+#star-rating {
+	visibility: hidden;
+}

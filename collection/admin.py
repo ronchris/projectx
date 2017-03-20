@@ -35,8 +35,8 @@ admin.site.register(Province, ProvinceAdmin)
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    list_display = ('destination', 'rating', 'user', 'comment', 'pub_date')
-    list_filter = ['pub_date', 'user']
+    list_display = ('destination', 'rating', 'user_name', 'comment', 'pub_date')
+    list_filter = ['pub_date', 'user_name']
     search_fields = ['comment']
 
 # and register it

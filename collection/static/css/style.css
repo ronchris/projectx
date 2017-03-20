@@ -401,4 +401,25 @@ h6.destination--sub-heading {
 	font-size: 1vw;
 	margin-bottom: 2%;
 }
+ul.errorlist, .errorlist li, .errorlist{
+	display: none !important;
+}
 
+/*star ratings*/
+#star-rating, #num-stars, #num-stars2, #id_rating {
+	visibility: hidden;
+}
+.star-rating {
+	margin-left: -0.6%;
+}
+.star-rating2 {
+	margin-top: -28%;
+}
+#review--count {
+    margin-top: -9%;
+    margin-left: 20%;
+}
+/*
+#id_rating {
+	margin-top: 5%;
+}*/

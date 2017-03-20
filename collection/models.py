@@ -4,6 +4,7 @@ from django.db import models
 import numpy as np
 
 
+
 class Province(models.Model):
 	name = models.CharField(max_length=255)
 	kind = models.CharField(max_length=255)
@@ -66,15 +67,18 @@ class Upload(models.Model):
 	image = models.ImageField(upload_to=get_image_path)
 	
 class Review(models.Model):
-    RATING_CHOICES = (
+	RATING_CHOICES = (
         (1, '1'),
         (2, '2'),
         (3, '3'),
         (4, '4'),
         (5, '5'),
     )
-    destination = models.ForeignKey(Destination)
-    pub_date = models.DateTimeField('date published')
-    user = models.OneToOneField(User, blank=True, null=True)
-    comment = models.TextField()
-    rating = models.IntegerField(choices=RATING_CHOICES)
+	destination = models.ForeignKey(Destination)
+	pub_date = models.DateTimeField('date published')
+	user_name = models.ForeignKey(User)
+	comment = models.TextField()
+	rating = models.IntegerField(choices=RATING_CHOICES)
+
+	
+	

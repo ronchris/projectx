@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'django.contrib.sites',
 	'registration',
+	'likert_field',
 ]
 
 MIDDLEWARE_CLASSES = [

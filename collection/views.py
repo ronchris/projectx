@@ -1,5 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from collection.models import Destination, Muni, Province, Review
+from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.db.models import Q
 from collection.forms import ReviewForm
@@ -21,9 +24,10 @@ def destination_detail(request, slug):
 	
 	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
+	form = ReviewForm()
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads,
+	'destination': destination, 'uploads': uploads, 'form': form
 	})
 
 def muni_detail(request, slug):
@@ -65,23 +69,24 @@ def review_detail(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
     return render(request, 'reviews/review_detail.html', {'review': review})
 
+@login_required
 def add_review(request, destination_id):
-    destination = get_object_or_404(Destination, pk=destination_id)
-    form = ReviewForm(request.POST)
-    if form.is_valid():
-		rating = form.cleaned_data['rating']
-		comment = form.cleaned_data['comment']
-		user = form.cleaned_data['user']
-		review = Review()
-		review.user = user
-		review.destination = destination
-		review.rating = rating
-		review.comment = comment
-		review.pub_date = datetime.datetime.now()
-		review.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-#        return HttpResponseRedirect(reverse('destinations/destination_detail', args=(destination.id,)))
-
-    return render(request, 'destinations/destination_detail.html', {'destination': destination, 'form': form})
+	destination = get_object_or_404(Destination, pk=destination_id)
+	user_posted = False
+	if request.method=='POST':
+		form = ReviewForm(request.POST) 
+		
+		if form.is_valid():
+			rating = form.cleaned_data['rating']
+			comment = form.cleaned_data['comment']
+			user_name = request.user
+			review = Review()
+			review.user_name = user_name
+			review.destination = destination
+			review.rating = rating
+			review.comment = comment
+			review.pub_date = datetime.datetime.now()
+			review.save()
+			user_posted = True
+		
+		return redirect('destination_detail', slug=destination.slug)

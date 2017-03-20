@@ -22,19 +22,25 @@
 		<p class="coords">{{ destination.coords }}</p>
 		<p class="posted--by">POSTED BY:</p>
 		<p class="posted--by--name">Ronald Ponferrada</p>
+		<div class="star-rating"></div>
+		<select id="star-rating">
+			<option value="">--</option>
+			<option value="5">5</option>
+			<option value="4">4</option>
+			<option value="3">3</option>
+			<option value="2">2</option>
+			<option value="1">1</option>
+		</select>
+		<p class="added--by" id="num-stars">{{ destination.average_rating | floatformat }}</p>
+		<p class="added--by" id="review--count">{{ destination.review_set.count }} REVIEW{{ estination.review_set.count|length|pluralize|title  }}</p>
 		<p class="description">{{ destination.description }}</p>
-		
-		<div class="review-container">
-			<p class="added--by">{{ destination.average_rating | floatformat }} STARS ({{ destination.review_set.count }} REVIEW{{ estination.review_set.count|length|pluralize|title  }})</p>
-		</div>
-		
 		<div class="review-container">
 			{% if destination.review_set.all %}
 			<div>
 				{% for review in destination.review_set.all %}
 				<div>
 					<em>{{ review.comment }}</em> - {{ review.rating }} STARS
-					<p class="added--by">BY {{ review.user }}</p>
+					<p class="added--by">BY {{ review.user_name }}</p>
 				</div>
 				{% endfor %}
 			</div>
@@ -43,6 +49,7 @@
 			{% endif %}
 		</div>
 	
+		{% if not user_posted %}
 		<div class="review-container">
 			{% if user.is_authenticated %}
 				<form action="{% url 'add_review' destination.id %}" method="post">
@@ -51,9 +58,12 @@
 					<input class="added--by" type="submit" value="LEAVE A REVIEW" />
 				</form>
 			{% else %}
-				<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+				<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
 			{% endif %}
 		</div>
+		{% endif %}
+		
+		<div class="star-rating2"></div>
 		
 	</div>
 	<div class="large-4 columns">
@@ -75,5 +85,6 @@
 		</div>
 	</div>
 </div>
+
 
 {% endblock content %}

@@ -73,6 +73,45 @@ $(document).ready(function(){
 		container.append('<p class="activity--box--destination--misc">' + myArrayMisc[i] + '</p>');
 	}
 	
+	// select list for star ratings
+//	$('#id_rating').starrating({
+//		clearable  : true,
+//		clickFn     : null,
+//		showText : false,
+//	});
+//	
+	var numStars = $('#num-stars').text();
+//	console.log("numStars is " + numStars);
+//	var numStarsRounded = Math.round(numStars);
+//	console.log("numStars rounded up is " + numStarsRounded); 
+//	$( '#star-rating' ).starrating({
+//		clearable  : false,
+//		showText : false,
+//		readOnly: true
+//	});
+//
+//	var string = 'div.review-container option[value=' + numStarsRounded.toString() + ']'
+//
+	$("#star-rating").val(numStars).change();
+	
+	$('div.star-rating').raty({
+		cancel     : true,
+  		target     : '#star-rating',
+		targetType : 'number',
+		readOnly: true, 
+		size   : 24,
+		score: numStars
+	});
+	
+	$('div.star-rating2').raty({
+		cancel     : false,
+  		target     : '#id_rating',
+		targetType : 'number',
+		readOnly: false, 
+		size   : 24,
+		targetKeep : true
+	});
+	
 });
 
 	
