@@ -40,7 +40,7 @@
 				{% for review in destination.review_set.all %}
 				<div>
 					<em>{{ review.comment }}</em> - {{ review.rating }} STARS
-					<p class="added--by">BY {{ review.user_name }}</p>
+					<p class="added--by--submit">BY {{ review.user_name }}</p>
 				</div>
 				{% endfor %}
 			</div>
@@ -50,11 +50,14 @@
 		</div>
 	
 		{% if not user_posted %}
-		<div class="review-container">
+		<div class="review-container" id="last--container">
 			{% if user.is_authenticated %}
+				
 				<form action="{% url 'add_review' destination.id %}" method="post">
 					{% csrf_token %}
+					
 					{{ form.as_p }}
+					<div class="star-rating2"></div>
 					<input class="added--by" type="submit" value="LEAVE A REVIEW" />
 				</form>
 			{% else %}
@@ -62,8 +65,6 @@
 			{% endif %}
 		</div>
 		{% endif %}
-		
-		<div class="star-rating2"></div>
 		
 	</div>
 	<div class="large-4 columns">

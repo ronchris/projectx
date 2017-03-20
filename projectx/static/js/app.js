@@ -81,8 +81,8 @@ $(document).ready(function(){
 //	});
 //	
 	var numStars = $('#num-stars').text();
-	console.log("numStars is " + numStars);
-	var numStarsRounded = Math.round(numStars);
+//	console.log("numStars is " + numStars);
+//	var numStarsRounded = Math.round(numStars);
 //	console.log("numStars rounded up is " + numStarsRounded); 
 //	$( '#star-rating' ).starrating({
 //		clearable  : false,
@@ -92,14 +92,24 @@ $(document).ready(function(){
 //
 //	var string = 'div.review-container option[value=' + numStarsRounded.toString() + ']'
 //
-//	$("#star-rating").val(numStarsRounded).change();
+	$("#star-rating").val(numStars).change();
 	
 	$('div.star-rating').raty({
 		cancel     : true,
   		target     : '#star-rating',
 		targetType : 'number',
 		readOnly: true, 
-		score: numStarsRounded
+		size   : 24,
+		score: numStars
+	});
+	
+	$('div.star-rating2').raty({
+		cancel     : false,
+  		target     : '#id_rating',
+		targetType : 'number',
+		readOnly: false, 
+		size   : 24,
+		targetKeep : true
 	});
 	
 });
