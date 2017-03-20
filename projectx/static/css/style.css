@@ -1,5 +1,5 @@
 * {
-	font-family: Gotham !important;
+	font-family: Gotham, Poppins, Helvetica;
 }
 .destination {
 	padding: 25px 0 50px;
@@ -33,6 +33,7 @@ input[type=text]:focus {
 }
 .top-bar, .top-bar ul {
 	background-color: #ffffff;
+	padding: 0px;
 }
 .top-bar input {
     width: 800px !important;
@@ -61,12 +62,12 @@ input[type=text]:focus {
 	font-size: 2.4em;
 }
 .top-bar-right {
-    padding-top: 12px;
+    padding-top: 16px;
 }
 #search-results {
 	background-color: rgba(255, 255, 255, 1);
     position: absolute;
-    top: 61px;
+    top: 55px;
     width: 699px;
     z-index: 10;
     left: 200px;
@@ -175,7 +176,7 @@ input[type=text]:focus {
 	margin-right: 2%;
 	color: #ffffff;
 	font-weight: bold;
-	font-size: 0.9vw;
+	font-size: 1vw;
 }
 .secondary--text--message {
 	font-size: 1.2vw !important;
@@ -337,6 +338,18 @@ h6.destination--sub-heading {
 	padding-top: 10px;
 	color: #687482 !important; 
 }
+
+/*reviews*/
+.added--by {
+	font-size: 0.7em;
+	color: #687482;
+	font-weight: bold;
+	margin-bottom: -2px;
+}
+.review-container {
+	margin-top: 2%;
+}
+
 .coords {
 	visibility: hidden;
 }

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from collection.models import Destination, Muni, Province, Upload
+from collection.models import Destination, Muni, Province, Upload, Review
 
 # set up automated slug creation
 class DestinationAdmin(admin.ModelAdmin):
@@ -32,3 +32,12 @@ prepopulated_fields = {'slug': ('name',)}
 
 # and register it
 admin.site.register(Province, ProvinceAdmin)
+
+class ReviewAdmin(admin.ModelAdmin):
+    model = Review
+    list_display = ('destination', 'rating', 'user', 'comment', 'pub_date')
+    list_filter = ['pub_date', 'user']
+    search_fields = ['comment']
+
+# and register it
+admin.site.register(Review, ReviewAdmin)

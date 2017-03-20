@@ -12,6 +12,7 @@
 		
 		<!-- stylesheets -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 		<link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
 		<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -46,11 +47,10 @@
 					</li>
 				</ul>
 			</div>
-<!--
 			<div class="top-bar-right">
 				<ul class="menu">
-					<li><a href="#">Icon</a></li>
 					{% if user.is_authenticated %}
+<!--					<li>Welcome, {{ user }}!</li>-->
 					<li>
 						<a href="{% url 'auth_logout' %}">Logout</a>
 					</li>
@@ -64,7 +64,6 @@
 					{% endif %}
 				</ul>
 			</div>
--->
 		</div>
         {% block content %}{% endblock content %}
         {% block footer %}

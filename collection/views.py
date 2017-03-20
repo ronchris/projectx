@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
-from collection.models import Destination, Muni, Province
+from django.shortcuts import get_object_or_404, render, redirect
+from collection.models import Destination, Muni, Province, Review
 from django.views.generic import View
 from django.db.models import Q
+from collection.forms import ReviewForm
+import datetime
 
 
 class IndexView(View):
@@ -21,8 +23,7 @@ def destination_detail(request, slug):
 	uploads = destination.uploads.all()
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads' : uploads,
-		
+	'destination': destination, 'uploads': uploads,
 	})
 
 def muni_detail(request, slug):
@@ -54,4 +55,33 @@ class DestinationSearchView(View):
 			return render(request, 'ajax_search.html', {'destinations': destination,
 				'munis': muni, 'provinces':province})
 		return render(request, 'ajax_search.html', {})
+	
+def review_list(request):
+    latest_review_list = Review.objects.order_by('-pub_date')[:9]
+    context = {'latest_review_list':latest_review_list}
+    return render(request, 'reviews/review_list.html', context)
 
+def review_detail(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    return render(request, 'reviews/review_detail.html', {'review': review})
+
+def add_review(request, destination_id):
+    destination = get_object_or_404(Destination, pk=destination_id)
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+		rating = form.cleaned_data['rating']
+		comment = form.cleaned_data['comment']
+		user = form.cleaned_data['user']
+		review = Review()
+		review.user = user
+		review.destination = destination
+		review.rating = rating
+		review.comment = comment
+		review.pub_date = datetime.datetime.now()
+		review.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+#        return HttpResponseRedirect(reverse('destinations/destination_detail', args=(destination.id,)))
+
+    return render(request, 'destinations/destination_detail.html', {'destination': destination, 'form': form})

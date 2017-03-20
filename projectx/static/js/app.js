@@ -48,7 +48,7 @@ $(document).ready(function(){
 	// splice string "," 
 	var myStringActivities = $(".activities-value").text();
 	var myArrayActivities = myStringActivities.split(',');
-	console.log(myArrayActivities);
+	//	console.log(myArrayActivities);
 	
 	for (var i=0; i<myArrayActivities.length; i++) {
 		var container = $(".activities-container");
@@ -57,7 +57,7 @@ $(document).ready(function(){
 	
 	var myStringFeatures = $(".features-value").text();
 	var myArrayFeatures = myStringFeatures.split(',');
-	console.log(myArrayFeatures);
+	//	console.log(myArrayFeatures);
 	
 	for (var i=0; i<myArrayFeatures.length; i++) {
 		var container = $(".features-container");
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	
 	var myStringMisc = $(".misc-value").text();
 	var myArrayMisc = myStringMisc.split(',');
-	console.log(myArrayMisc);
+	//	console.log(myArrayMisc);
 	
 	for (var i=0; i<myArrayMisc.length; i++) {
 		var container = $(".misc-container");

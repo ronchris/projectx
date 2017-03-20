@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+import numpy as np
 
 
 class Province(models.Model):
@@ -34,7 +35,7 @@ class Muni(models.Model):
 	
 	def __str__(self):
 		return self.name
-	
+
 class Destination(models.Model):
 	name = models.CharField(max_length=255)
 	kind = models.CharField(max_length=255)
@@ -50,6 +51,10 @@ class Destination(models.Model):
 	image = models.ImageField()
 	user = models.OneToOneField(User, blank=True, null=True)
 	
+	def average_rating(self):
+		all_ratings = map(lambda x: x.rating, self.review_set.all())
+		return np.mean(all_ratings)
+	
 	def __str__(self):
 		return self.name + ' - ' + self.address
 
@@ -59,3 +64,17 @@ def get_image_path(instance, filename):
 class Upload(models.Model):
 	destination = models.ForeignKey(Destination, related_name="uploads")
 	image = models.ImageField(upload_to=get_image_path)
+	
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    destination = models.ForeignKey(Destination)
+    pub_date = models.DateTimeField('date published')
+    user = models.OneToOneField(User, blank=True, null=True)
+    comment = models.TextField()
+    rating = models.IntegerField(choices=RATING_CHOICES)
