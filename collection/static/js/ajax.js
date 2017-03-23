@@ -1,4 +1,5 @@
-$(function() {
+$(document).ready(function(){
+	
   $('#destination-search').keyup(function() {
     $.ajax({
 		type: 'GET',
@@ -11,9 +12,9 @@ $(function() {
 		dataType: 'html'
 	});
   });
+	
 });
 
 function searchSuccess(data, textStatus, jqXHR) {
   $('#search-results').html(data);
 }
-

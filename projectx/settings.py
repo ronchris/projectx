@@ -142,3 +142,5 @@ EMAIL_PORT = 1025
 LOGIN_REDIRECT_URL = "home"
 
 SITE_ID = 1
+
+AUTH_PROFILE_MODULE = 'collection.Profile'

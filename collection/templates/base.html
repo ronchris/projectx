@@ -23,7 +23,7 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
-		<script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
 		<script type="text/javascript" src="{% static 'js/google-maps.js' %}"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_B9Chqe56-Wb96kZ7E4wSzeqVj5ypUH4"></script>
 		
@@ -52,7 +52,7 @@
 			<div class="top-bar-right">
 				<ul class="menu">
 					{% if user.is_authenticated %}
-<!--					<li>Welcome, {{ user }}!</li>-->
+					<li><a href="{% url 'profile_detail' %}">{{ user }}</a></li>
 					<li>
 						<a href="{% url 'auth_logout' %}">Logout</a>
 					</li>
@@ -67,6 +67,8 @@
 				</ul>
 			</div>
 		</div>
+
+
         {% block content %}{% endblock content %}
         {% block footer %}
 		<div class="callout large secondary">

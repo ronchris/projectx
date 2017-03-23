@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 import numpy as np
-
 
 
 class Province(models.Model):
@@ -77,8 +78,30 @@ class Review(models.Model):
 	destination = models.ForeignKey(Destination)
 	pub_date = models.DateTimeField('date published')
 	user_name = models.ForeignKey(User)
-	comment = models.TextField()
-	rating = models.IntegerField(choices=RATING_CHOICES)
-
+	comment = models.TextField(blank=False)
+	rating = models.IntegerField(choices=RATING_CHOICES, blank=False)
 	
+class Profile(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	review = models.ForeignKey(Review)
+	bio = models.TextField(max_length=500, blank=True)
+	location = models.CharField(max_length=30, blank=True)
+	image = models.ImageField(upload_to=get_image_path, blank=True)
+	slug = models.SlugField(unique=True, blank=True)
+	
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+	if not created:
+		 Profile.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, created, **kwargs):
+	user = instance
+	if created:
+		profile = Profile(user=user)
+		instance.profile.save()
+		
 	

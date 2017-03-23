@@ -12,7 +12,9 @@
 			<img src="{{ upload.image.url }}" alt="" height="auto" width="100%" />
 		</div>
 	{% endfor %}
+	</div>
 </div>
+
 
 <div class="row destination">
 	<div class="large-8 columns">
@@ -40,7 +42,8 @@
 				{% for review in destination.review_set.all %}
 				<div>
 					<em>{{ review.comment }}</em> - {{ review.rating }} STARS
-					<p class="added--by--submit">BY {{ review.user_name }}</p>
+					<p class="added--by--submit">by <a href="{% url 'profile_detail' %}">{{ review.user_name }}</a></p>
+					<p>{{ review.pub_date }}</p>
 				</div>
 				{% endfor %}
 			</div>
@@ -48,17 +51,20 @@
 			<p>No reviews for this destination yet</p>
 			{% endif %}
 		</div>
-	
+		
 		{% if not user_posted %}
 		<div class="review-container" id="last--container">
 			{% if user.is_authenticated %}
-				
 				<form action="{% url 'add_review' destination.id %}" method="post">
 					{% csrf_token %}
-					
 					{{ form.as_p }}
 					<div class="star-rating2"></div>
 					<input class="added--by" type="submit" value="LEAVE A REVIEW" />
+					{% if messages %}
+						{% for message in messages %}
+							Please add a rating and a comment.
+						{% endfor %}
+					{% endif %}
 				</form>
 			{% else %}
 				<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
@@ -86,6 +92,5 @@
 		</div>
 	</div>
 </div>
-
 
 {% endblock content %}

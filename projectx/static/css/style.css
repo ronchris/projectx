@@ -33,7 +33,7 @@ input[type=text]:focus {
 }
 .top-bar, .top-bar ul {
 	background-color: #ffffff;
-	padding: 0px;
+	padding: 5px;
 }
 .top-bar input {
     width: 800px !important;
@@ -82,14 +82,14 @@ input[type=text]:focus {
 .search--results--li {
 	padding:5px 30px;
 	opacity: 1; 
-	font-size: 0.85em;
+	font-size:1.1em;
 	margin: 5px 0;
 }
 .search--results--li--heading {
 	color: #a3abb4;
 	padding: 10px 30px; 
 	opacity: 1; 
-	font-size: 0.9em;
+	font-size: 1.2em;
 	font-weight: bold;
 }
 .search--results--ul {
@@ -341,7 +341,7 @@ h6.destination--sub-heading {
 
 /*reviews*/
 .added--by {
-	font-size: 0.7em;
+	font-size: 1em;
 	color: #687482;
 	font-weight: bold;
 	margin-bottom: -2px;
@@ -408,9 +408,7 @@ h6.destination--sub-heading {
 	font-size: 1vw;
 	margin-bottom: 2%;
 }
-ul.errorlist, .errorlist li, .errorlist{
-	display: none !important;
-}
+
 
 /*star ratings*/
 #star-rating, #num-stars, #num-stars2, #id_rating {
@@ -420,13 +418,32 @@ ul.errorlist, .errorlist li, .errorlist{
 	margin-left: -0.6%;
 }
 .star-rating2 {
-	margin-top: -28%;
+	margin-top: -25%;
+	margin-bottom: 25%
+
 }
 #review--count {
-    margin-top: -9%;
+    margin-top: -10%;
     margin-left: 20%;
+}
+#last--container {
+	overflow: auto;
 }
 /*
 #id_rating {
 	margin-top: 5%;
 }*/
+
+/*profiles*/
+#profile--section {
+   text-align: center;
+	padding: 10%;
+}
+#profile--section h6 {
+   margin-bottom: 10%;
+}
+#profile--section img {
+   border-radius: 200px;
+   margin-bottom: 5%;
+}
+

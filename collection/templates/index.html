@@ -49,7 +49,7 @@
 <div class="row small-up-1 medium-up-3 large-up-3 top--destinations--row">
 	{% for destination in destinations %}
 	<div class="column">
-		<img class="thumbnail" src="/media/{{ destination.image }}" width="370" height="280">
+		<a href="{% url 'destination_detail' slug=destination.slug %}"><img class="thumbnail" src="/media/{{ destination.image }}" width="370" height="280"></a>
 		<h5>
 			<a href="{% url 'destination_detail' slug=destination.slug %}">
             	{{ destination.name }}

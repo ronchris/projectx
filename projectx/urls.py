@@ -23,10 +23,12 @@ urlpatterns = [
 	url(r'^$', views.IndexView.as_view(), name='home'),
 	url(r'^search/$', views.DestinationSearchView.as_view(), name='destination_search'),
 	url(r'^destinations/(?P<slug>[-\w]+)/$', views.destination_detail, name='destination_detail'),
+	url(r'^profiles/update/$', views.update_profile, name='update_profile'),
+	url(r'^profiles/$', views.profile_detail, name='profile_detail'),
 	url(r'^munis/(?P<slug>[-\w]+)/$', views.muni_detail, name='muni_detail'),
 	url(r'^provinces/(?P<slug>[-\w]+)/$', views.province_detail, name='province_detail'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),
-	url(r'^review/(?P<review_id>[0-9]+)/$', views.review_detail, name='review_detail'),
 	url(r'^destinations/(?P<destination_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
+#	url(r'^profiles/(?P<slug>[-\w]+)/edit_review/$', views.edit_review, name='edit_review'),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
