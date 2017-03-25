@@ -44,7 +44,7 @@ admin.site.register(Review, ReviewAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
 	model = Profile
-	list_display = ('user', 'review', 'bio', 'location', 'image', 'slug')
+	list_display = ('user', 'review', 'bio', 'location', 'image')
 	
 # and register it
 admin.site.register(Profile, ProfileAdmin)

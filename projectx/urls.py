@@ -25,6 +25,7 @@ urlpatterns = [
 	url(r'^destinations/(?P<slug>[-\w]+)/$', views.destination_detail, name='destination_detail'),
 	url(r'^profiles/update/$', views.update_profile, name='update_profile'),
 	url(r'^profiles/$', views.profile_detail, name='profile_detail'),
+	url(r'^profiles/(?P<profile_id>[-\d]+)/$', views.profile_detail, name='profile_detail'),
 	url(r'^munis/(?P<slug>[-\w]+)/$', views.muni_detail, name='muni_detail'),
 	url(r'^provinces/(?P<slug>[-\w]+)/$', views.province_detail, name='province_detail'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),

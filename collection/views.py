@@ -43,9 +43,10 @@ def destination_detail(request, slug):
 	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
 	form = ReviewForm()
+	print form
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 
+	'destination': destination, 'uploads': uploads, 'form': form
 	})
 
 def muni_detail(request, slug):
@@ -66,12 +67,19 @@ def province_detail(request, slug):
 	'province': province, 'munis': munis
 	})
 
-def profile_detail(request):
-	
-	profile = Profile.objects.all
-	
+def profile_detail(request, profile_id=None):
+	print profile_id
+	id = request.user.id
+	review = None
+	if profile_id:
+		review = Review.objects.get(id=profile_id)
+		id = review.user_name_id
+		print review
+			
+	profile = Profile.objects.get(user_id=id)
+	print profile
 	return render(request, 'profiles/profile_detail.html', {
-	'profile': profile
+	'profile': profile.user, 'review': review, 'user': request.user
 	})
 
 @login_required
@@ -118,7 +126,6 @@ def update_profile(request):
     		return render(request, 'profiles/profile_settings.html', {
         'user_form': user_form,
         'profile_form': profile_form,
-		'created': created
     })
 
 	

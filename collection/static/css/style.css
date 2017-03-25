@@ -420,8 +420,11 @@ h6.destination--sub-heading {
 
 
 /*star ratings*/
-#star-rating, #num-stars, #num-stars2, #id_rating {
+#star-rating, #num-stars, #id_rating, #num-stars2 {
 	visibility: hidden;
+}
+#num-stars2 {
+	color: #ff0000;
 }
 .star-rating {
 	margin-left: -0.6%;
@@ -429,7 +432,11 @@ h6.destination--sub-heading {
 .star-rating2 {
 	margin-top: -25%;
 	margin-bottom: 25%
-
+}
+.star-rating3 {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: -0.5%;
 }
 #review--count {
     margin-top: -10%;
@@ -438,10 +445,24 @@ h6.destination--sub-heading {
 #last--container {
 	overflow: auto;
 }
-/*
-#id_rating {
-	margin-top: 5%;
-}*/
+.review--box {
+	border: 1px solid #e6e6e6;
+	padding: 2%;
+	margin-bottom: 2%;
+}
+.fa-fw {
+    width: 1em;
+    text-align: center;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 16px/1 FontAwesome;
+	font-size: 16px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	color: #ff0000;
+}
 
 /*profiles*/
 #profile--section {

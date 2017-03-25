@@ -5,14 +5,14 @@
 
 {% block content %}
 
-<h2>{{ user.get_full_name }}</h2>
+<h2>{{ profile.get_full_name }}</h2>
 <ul>
-  <li>Username: {{ user.username }}</li>
-  <li>Location: {{ user.profile.location }}</li>
-  <img src="/media/{{ user.profile.image }}" />
+  <li>Username: {{ profile.username }}</li>
+  <li>Location: {{ profile.location }}</li>
+  <img src="/media/{{ profile.image }}" />
 </ul>
 
-{% if user.is_authenticated %}
+{% if request.user.id == profile.id %}
 <a href="{% url 'update_profile' %}">Edit Profile</a>
 {% else %}
 

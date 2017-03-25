@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from registration.signals import user_registered
 from django.dispatch import receiver
 from django.db import models
 import numpy as np
@@ -83,25 +84,14 @@ class Review(models.Model):
 	
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	review = models.ForeignKey(Review)
+	review = models.ForeignKey(Review, null=True, blank=True)
 	bio = models.TextField(max_length=500, blank=True)
 	location = models.CharField(max_length=30, blank=True)
 	image = models.ImageField(upload_to=get_image_path, blank=True)
-	slug = models.SlugField(unique=True, blank=True)
 	
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-	if not created:
-		 Profile.objects.create(user=instance)
-post_save.connect(create_user_profile, sender=User)
+def create_user_profile(sender, user, request, **kwargs):
+	print "create_user_profile"
+	Profile.objects.create(user=user)
+user_registered.connect(create_user_profile)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, created, **kwargs):
-	user = instance
-	if created:
-		profile = Profile(user=user)
-		instance.profile.save()
-		
 	

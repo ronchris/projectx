@@ -73,7 +73,7 @@ $(document).ready(function(){
 		container.append('<p class="activity--box--destination--misc">' + myArrayMisc[i] + '</p>');
 	}
 	
-	// raty for star ratings
+	// star rating average for all reviews
 	var numStars = $('#num-stars').text();
 	
 	$("#star-rating").val(numStars).change();
@@ -82,23 +82,33 @@ $(document).ready(function(){
 		cancel: true,
   		target: '#star-rating',
 		targetType: 'number',
-		readOnly: true, 
-		size: 24,
+		readOnly: true,
 		score: numStars
 	});
 	
+	// star rating form value
 	$('div.star-rating2').raty({
 		cancel: false,
   		target: '#id_rating',
 		targetType: 'number',
 		readOnly: false, 
-		size: 24,
 		targetKeep: true
 	});
 	
-	$(".reveal-modal").on("opened", function() {
-    $(".destination-slides").slick("setPosition", 0);
-});
+	$('div.star-rating2 i').removeAttr("title");
+	
+	// star rating for each review
+	var numStars2 = $('#num-stars2').text();
+		
+	$('.star-rating3').raty({
+		//cancel: false,
+		//target: '#star-rating3',
+		targetType: 'number',
+		readOnly: true, 
+		score: function() {
+			return $(this).attr('data-score');
+		}
+	});
 	
 });
 

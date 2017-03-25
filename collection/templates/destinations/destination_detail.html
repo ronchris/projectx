@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load mathfilters %}
+{% load widget_tweaks %}
 {% block title %}
     Homepage - {{ block.super }}
 {% endblock title %}
@@ -40,9 +42,13 @@
 			{% if destination.review_set.all %}
 			<div>
 				{% for review in destination.review_set.all %}
-				<div>
-					<em>{{ review.comment }}</em> - {{ review.rating }} STARS
-					<p class="added--by--submit">by <a href="{% url 'profile_detail' %}">{{ review.user_name }}</a></p>
+				<div class="review--box">
+					
+					<em>{{ review.comment }}</em>
+					
+					<div class="star-rating3" data-score="{{review.rating}}"></div>
+				
+					<p class="added--by--submit">by <a href="{% url 'profile_detail' profile_id=review.id %}">{{ review.user_name }}</a></p>
 					<p>{{ review.pub_date }}</p>
 				</div>
 				{% endfor %}
@@ -59,7 +65,7 @@
 					{% csrf_token %}
 					{{ form.as_p }}
 					<div class="star-rating2"></div>
-					<input class="added--by" type="submit" value="LEAVE A REVIEW" />
+					<input id="reviewInput" class="added--by" type="submit" value="LEAVE A REVIEW" />
 					{% if messages %}
 						{% for message in messages %}
 							Please add a rating and a comment.
