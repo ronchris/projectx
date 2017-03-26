@@ -37,22 +37,6 @@
 		<p class="added--by" id="num-stars">{{ destination.average_rating | floatformat }}</p>
 		<p class="added--by" id="review--count">{{ destination.review_set.count }} REVIEW{{ estination.review_set.count|length|pluralize|title  }}</p>
 		<p class="description">{{ destination.description }}</p>
-		<div class="review-container">
-			{% if destination.review_set.all %}
-			<div>
-				{% for review in destination.review_set.all %}
-				<div class="review--box">
-					<em>{{ review.comment }}</em>
-					<div class="star-rating3" data-score="{{review.rating}}"></div>
-					<p class="added--by--submit">by <a href="{% url 'profile_detail' profile_id=review.id %}">{{ review.user_name }}</a></p>
-					<p>{{ review.pub_date }}</p>
-				</div>
-				{% endfor %}
-			</div>
-			{% else %}
-			<p>No reviews for this destination yet</p>
-			{% endif %}
-		</div>
 		
 		{% if not user_posted %}
 		<div class="review-container" id="last--container">
@@ -61,7 +45,7 @@
 					{% csrf_token %}
 					{{ form.as_p }}
 					<div class="star-rating2"></div>
-					<input id="reviewInput" class="added--by" type="submit" value="LEAVE A REVIEW" />
+					<input id="reviewInput" class="review--by--post" type="submit" value="Post" />
 					{% if messages %}
 						{% for message in messages %}
 							Please add a rating and a comment.
@@ -74,6 +58,25 @@
 		</div>
 		{% endif %}
 		
+		<div class="review-container">
+			{% if destination.review_set.all %}
+			<div>
+				<div class="text-center"><span class="review--header">REVIEWS</span></div>
+				
+				<hr>
+				{% for review in destination.review_set.all %}
+				<div class="review--box">
+					<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.id %}">{{ review.user_name }}</a></p>
+					<div class="star-rating3" data-score="{{review.rating}}"></div>
+					<p class="review--text">{{ review.comment }}</p>
+					<p>{{ review.pub_date }}</p>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<p>No reviews for this destination yet</p>
+			{% endif %}
+		</div>
 	</div>
 	<div class="large-4 columns">
 		<div class="map"></div>

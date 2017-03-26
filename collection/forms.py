@@ -12,6 +12,7 @@ class ReviewForm(ModelForm):
         }
 	def __init__(self, *args, **kwargs):
 		super(ReviewForm, self).__init__(*args, **kwargs)
+		self.fields['comment'].label = "Review"
 		self.fields['rating'].error_messages = {'required': 'Please enter a rating.'}
 		self.fields['comment'].error_messages = {'required': 'Please enter a review.'}
 
