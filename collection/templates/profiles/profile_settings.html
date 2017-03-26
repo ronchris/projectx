@@ -4,10 +4,17 @@
 {% endblock title %}
 
 {% block content %}
-<form method="post">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <button type="submit">Save changes</button>
-</form>
+
+<div class="callout large secondary">
+	<div class="row">
+		<div class="large-8 columns">
+			<form method="post">
+			  {% csrf_token %}
+			  {{ user_form.as_p }}
+			  {{ profile_form.as_p }}
+			  <button type="submit">Save changes</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

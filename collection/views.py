@@ -68,22 +68,23 @@ def province_detail(request, slug):
 	})
 
 def profile_detail(request, profile_id=None):
-	print profile_id
+	
 	id = request.user.id
 	review = None
 	if profile_id:
 		review = Review.objects.get(id=profile_id)
 		id = review.user_name_id
-		print review
 			
 	profile = Profile.objects.get(user_id=id)
-	print profile
+	reviews =Review.objects.all
+
 	return render(request, 'profiles/profile_detail.html', {
-	'profile': profile.user, 'review': review, 'user': request.user
+	'profile': profile.user, 'review': review, 'user': request.user, 'reviews': reviews
 	})
 
 @login_required
 def add_review(request, destination_id):
+	
 	destination = get_object_or_404(Destination, pk=destination_id)
 	user_posted = False
 	if request.method=='POST':
@@ -109,6 +110,7 @@ def add_review(request, destination_id):
 @login_required
 @transaction.atomic
 def update_profile(request):
+	
 	created = Profile.objects.get_or_create(user=request.user)
 	if request.method == 'POST':
 		user_form = UserForm(request.POST, instance=request.user)

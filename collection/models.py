@@ -87,7 +87,7 @@ class Profile(models.Model):
 	review = models.ForeignKey(Review, null=True, blank=True)
 	bio = models.TextField(max_length=500, blank=True)
 	location = models.CharField(max_length=30, blank=True)
-	image = models.ImageField(upload_to=get_image_path, blank=True)
+	image = models.ImageField(null=True, blank=True)
 	
 def create_user_profile(sender, user, request, **kwargs):
 	print "create_user_profile"

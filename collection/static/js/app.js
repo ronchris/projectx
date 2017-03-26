@@ -1,5 +1,15 @@
 $(document).ready(function(){
 	
+	//sticky header
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 1){  
+			$('header').addClass("sticky");
+		  }
+		  else{
+			$('header').removeClass("sticky");
+		  }
+	});
+	
 	// prevent enter submission 
 	$(document).on('keyup keypress', 'form input[type="text"]', function(e) {
 		if(e.which == 13) {

@@ -24,3 +24,4 @@ class ProfileForm(ModelForm):
     class Meta:
 		model = Profile
 		fields = ('bio', 'location', 'image')
+		

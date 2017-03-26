@@ -26,50 +26,53 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
 		<script type="text/javascript" src="{% static 'js/google-maps.js' %}"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_B9Chqe56-Wb96kZ7E4wSzeqVj5ypUH4"></script>
-		
-        {% block header %}{% endblock header %}
     </head>
     <body>
-		<div class="top-bar">
-			<div class="top-bar-left">
-				<ul class="menu" style="position: relative">
-					<li class="menu-text">
-						<a href="{% url 'home' %}">likana</a>
-					</li>
-					<li><img src="http://www.mosms.ir/Images/search.png" height="20" width ="20" /></li>
-					<li>
-						<form action=""  method="get">
-							{% csrf_token %}
-      					<input id="destination-search" type="text" name="q" placeholder="Search by destination, municipality or province" autocomplete="off">
-						</form>
-					<li>
-					
-					<div id="search-results"></div>
-						
-					</li>
-				</ul>
-			</div>
-			<div class="top-bar-right">
-				<ul class="menu">
-					{% if user.is_authenticated %}
-					<li><a href="{% url 'profile_detail' %}">{{ user }}</a></li>
-					<li>
-						<a href="{% url 'auth_logout' %}">Logout</a>
-					</li>
-					{% else %}
-					<li>
-						<a href="{% url 'auth_login' %}">Login</a>
-					</li>
-					<li>
-						<a href="{% url 'registration_register' %}">Register</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-		</div>
+		{% block header %}
+		<header>
+			<div class="top-bar">
+				<div class="top-bar-left">
+					<ul class="menu" style="position: relative">
+						<li class="menu-text">
+							<a href="{% url 'home' %}">likana</a>
+						</li>
+						<li><img src="http://www.mosms.ir/Images/search.png" height="20" width ="20" /></li>
+						<li>
+							<form action=""  method="get">
+								{% csrf_token %}
+							<input id="destination-search" type="text" name="q" placeholder="Search by destination, municipality or province" autocomplete="off">
+							</form>
+						<li>
 
+						<div id="search-results"></div>
 
-        {% block content %}{% endblock content %}
+						</li>
+					</ul>
+				</div>
+				<div class="top-bar-right">
+					<ul class="menu">
+						{% if user.is_authenticated %}
+						<li><a href="{% url 'profile_detail' %}">{{ user }}</a></li>
+						<li>
+							<a href="{% url 'auth_logout' %}">Logout</a>
+						</li>
+						{% else %}
+						<li>
+							<a href="{% url 'auth_login' %}">Login</a>
+						</li>
+						<li>
+							<a href="{% url 'registration_register' %}">Register</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</header>
+		{% endblock header %}
+		
+        {% block content %}
+		{% endblock content %}
+		
         {% block footer %}
 		<div class="callout large secondary">
 			<div class="row">

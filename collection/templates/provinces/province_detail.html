@@ -4,33 +4,57 @@
 {% endblock title %}
 
 {% block content %}
-<div class="row destination">
-	<div class="large-8 columns">
-<!--
-		{% for upload in uploads %}
-			<img class="thumbnail" src="{{ upload.image.url }}" alt="" height="300" width="300" />
-		{% endfor %}
--->
-		
-		<img class="thumbnail" src="/media/{{ destination.image }}" height="300" width="300">
-		<h5>{{ province.name }}</h5>
-		<h7 class="address">{{ province.address }}</h7>
-		
-	<!--	<a href="#" class="button expanded">Buy</a>-->
-		<div class="row">
-			<p class="description">{{ province.description }}</p>
-			<p class="coords">{{ province.coords }}</p>
+
+<div class="province--bg">
+	<img src ="/media/{{ province.image }}" />
+	<div class="province--primary overlay">
+		<div class="province--heading center-text">
+			<h2>{{ province.name }}</h2>
+			<p>{{ province.short_description }}</p>
+			<p class="province--photo--by">PHOTO BY</p>
 		</div>
 	</div>
-	<div class="large-4 columns">
+</div>
+
+<div class="row">
+	<div class="large-1 columns"></div>
+	<div class="large-8  large-offset-2 columns" id="province--info">
+		<h7 class="address">{{ province.address }}</h7>
+		<p class="description">{{ province.description }}</p>
+	</div>
+	<div class="large-1 columns"></div>
+</div>
+
+<div class="row">
+	<div class="text-center province--muni--heading">
+		<h1>Municipalities</h1>
+	</div>
+	<div class="small-up-2 medium-up-4 large-up-4 muni--section">
+	{% for muni in province.muni_set.all %}
+		<div class="column">
+				<a href="{% url 'muni_detail' slug=muni.slug %}"> 
+					<img src ="/media/{{ muni.image }}" height="350" width="100% "/>
+					<div class="province--box">
+						{{ muni.name }}</a> 
+						<br>
+					<p><a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}</a></p>
+				</a>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+
+<div class="province--map">
+	<div class="destination">
+		<p class="coords">{{ province.coords }}</p>
 		<div class="map"></div>
 	</div>
-	
-	{% for muni in province.muni_set.all %}
-		<img src ="/media/{{ muni.image }}" />
-		<a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.name }}, {{ muni.province }}</a> <i>({{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}) </i>
-	{% endfor %}
 </div>
+
+
+
 
 <!--
 <div class="row column text-center">
@@ -38,6 +62,5 @@
 	<hr>
 </div>
 -->
-
 
 {% endblock content %}

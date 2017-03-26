@@ -17,7 +17,6 @@
 	</div>
 </div>
 
-
 <div class="row destination">
 	<div class="large-8 columns">
 		<span class="name--structure"><a href="{% url 'province_detail' slug=destination.province.slug %}" class="name--structure">{{ destination.province }}</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="{% url 'muni_detail' slug=destination.muni.slug %}" class="name--structure">{{ destination.muni }}</a></span>
@@ -43,11 +42,8 @@
 			<div>
 				{% for review in destination.review_set.all %}
 				<div class="review--box">
-					
 					<em>{{ review.comment }}</em>
-					
 					<div class="star-rating3" data-score="{{review.rating}}"></div>
-				
 					<p class="added--by--submit">by <a href="{% url 'profile_detail' profile_id=review.id %}">{{ review.user_name }}</a></p>
 					<p>{{ review.pub_date }}</p>
 				</div>

@@ -1,6 +1,12 @@
 * {
 	font-family: Gotham, Poppins, Helvetica;
 }
+header{
+	position: fixed;
+	width: 100%;
+	z-index: 20;
+
+}
 .destination {
 	padding: 25px 0 50px;
 }
@@ -320,7 +326,7 @@ img.thumbnail {
 }
 .map {
 	height: 350px;
-	width: 350px;
+	width: 100%;
 	background-color: #eee;
 	margin-bottom: 5%;
 }
@@ -346,6 +352,62 @@ img.thumbnail {
 h6.destination--sub-heading {
 	padding-top: 10px;
 	color: #687482 !important; 
+}
+
+
+/*province page styles*/
+.province--bg, .province--heading, .province--heading h2,  .province--heading p, .destination h5, #province--info h5 {
+	position: relative;
+	font-family: Gotham, Poppins, Helvetica;
+}
+.province--primary {
+	position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+.province--bg img {
+	width: 100%;
+}
+.province--heading h2 {
+	color: #ffffff !important;
+	margin: 10% 40%;
+}
+.province--heading p {
+	color: #ffffff !important;
+	margin: 10% 3%;
+	font-weight: bold;
+}
+.overlay {
+	top: 50%;
+    background: rgba(0, 0, 0, .25);
+    width: 100%;
+    height: 100%;
+}
+#province--info {
+	padding-top: 2.5%;
+}
+.muni--section {
+	margin: 5%;
+}
+.province--box {
+	border: 0.5px solid #dadcde;
+	padding: 2% 4% 0% 4%;
+}
+.province--box a {
+	color: #687482;
+	font-weight: bold;
+}
+.province--box p a, .province--box p {
+	color: #93d756;
+	font-weight: bold;
+}
+.province--muni--heading h1 {
+	font-family: Gotham, Poppins, Helvetica;
+	color: #687482;
+	font-weight: bold;
 }
 
 /*reviews*/
@@ -446,7 +508,7 @@ h6.destination--sub-heading {
 	overflow: auto;
 }
 .review--box {
-	border: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
 	padding: 2%;
 	margin-bottom: 2%;
 }
