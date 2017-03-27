@@ -1,5 +1,5 @@
 * {
-	font-family: Gotham, Poppins, Helvetica;
+	font-family: 'Avenir Next', Gotham, Poppins, Helvetica;
 }
 header{
 	position: fixed;
@@ -70,7 +70,7 @@ input[type=text]:focus {
 	padding: 5px;
 }
 .top-bar input {
-    width: 800px !important;
+    width: 600px !important;
     margin-right: 1rem;
 	margin-top: .4rem;
 }
@@ -107,7 +107,7 @@ input[type=text]:focus {
 	background-color: rgba(255, 255, 255, 1);
     position: absolute;
     top: 55px;
-    width: 699px;
+    width: 599px;
     z-index: 10;
     left: 200px;
 	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
@@ -402,6 +402,7 @@ h6.destination--sub-heading {
 .province--heading h2 {
 	color: #ffffff !important;
 	margin: 10% 40%;
+	width: 100%;
 }
 .province--heading p {
 	color: #ffffff !important;
@@ -574,5 +575,8 @@ h6.destination--sub-heading {
 #profile--section img {
    border-radius: 200px;
    margin-bottom: 5%;
+}
+.profile--container {
+	padding-top: 5%;
 }
 

@@ -26,6 +26,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
 		<script type="text/javascript" src="{% static 'js/google-maps.js' %}"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_B9Chqe56-Wb96kZ7E4wSzeqVj5ypUH4"></script>
+		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
     </head>
     <body>
 		{% block header %}
@@ -52,7 +54,7 @@
 				<div class="top-bar-right">
 					<ul class="menu">
 						{% if user.is_authenticated %}
-						<li><a href="{% url 'profile_detail' %}">{{ user }}</a></li>
+						<li><a href="{% url 'profile_detail' profile_id=user.id %}">{{ user }}</a></li>
 						<li>
 							<a href="{% url 'auth_logout' %}">Logout</a>
 						</li>

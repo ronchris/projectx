@@ -37,7 +37,9 @@
 					<div class="province--box">
 						{{ muni.name }}</a> 
 						<br>
-					<p><a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}</a></p>
+					<p>
+						<a href="{% url 'muni_detail' slug=muni.slug %}"> {{ muni.destination_set.all|length }} destination{{ muni.destination_set.all|length|pluralize }}</a>
+					</p>
 				</a>
 			</div>
 		</div>
@@ -45,16 +47,12 @@
 	</div>
 </div>
 
-
 <div class="province--map">
 	<div class="destination">
 		<p class="coords">{{ province.coords }}</p>
 		<div class="map"></div>
 	</div>
 </div>
-
-
-
 
 <!--
 <div class="row column text-center">

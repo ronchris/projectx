@@ -1,4 +1,6 @@
 $(document).ready(function(){
+ 
+  console.log("ajax file");
 	
   $('#destination-search').keyup(function() {
     $.ajax({
@@ -12,6 +14,31 @@ $(document).ready(function(){
 		dataType: 'html'
 	});
   });
+  
+  $("body").on('click', ".delete_review", deleteReview);
+	
+  function deleteReview(e) {
+	e.preventDefault();
+	var button = $(this);
+	console.log(button);
+	var reviewId = button.attr("data-reviewId");
+	console.log(reviewId);
+	// get id from template
+	$.ajax({
+		type: "GET",
+		url: "/profiles/delete_review/",
+		data: {'reviewId': reviewId },
+		success: function(data) {
+			console.log(data);
+			if (data && data.status == "success") {
+				button.parents(".reviewId").remove();
+			}
+		},
+		error: function(error) {
+				console.log(error.responseText)
+			},
+		});//end ajax
+     }
 	
 });
 

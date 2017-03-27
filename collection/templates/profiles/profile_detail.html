@@ -5,17 +5,34 @@
 
 {% block content %}
 
-<div class="text-center">
-	<h2>{{ profile.get_full_name }}</h2>
+<div class="profile--container">
+	<h2>{{ profile.user.get_full_name }}</h2>
 	<ul>
-	  <li>{{ profile.username }}</li>
-	<!--
+	  <li>{{ profile.user.username }}</li>
+	
 	  <li>Location: {{ profile.location }}</li>
-	  <img src="/media/{{ profile.image }}" />
-	-->
+	  {% if profile.image %}
+	  <img src="{{ profile.image.url }}" height="250" width="250" />
+	  {% else %}
+	  <img src="{{ MEDIA_URL }}/profiles/default.png" height="250" width="250" />
+	  {% endif %}
+	
+		  <ul>
+			{% for review in reviews %}
+			  <div class="reviewId">
+					<li>{{ review.comment }}</li>
+					<li>{{ review.rating }}</li>
+					{% if request.user.id == profile.user.id %}
+				  	<!--<a class="edit_review">Edit</a>-->
+					<a class="delete_review" data-reviewId={{ review.id }}>Delete</a>
+					{% endif %}
+			  </div>
+			{% endfor %}
+			
+		 </ul>
+		
 	</ul>
-
-	{% if request.user.id == profile.id %}
+	{% if request.user.id == profile.user.id %}
 	<a href="{% url 'update_profile' %}">Edit Profile</a>
 	{% else %}
 

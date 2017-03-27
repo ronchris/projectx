@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.db import transaction
+import json
 import datetime
 
 
@@ -72,14 +73,16 @@ def profile_detail(request, profile_id=None):
 	id = request.user.id
 	review = None
 	if profile_id:
-		review = Review.objects.get(id=profile_id)
-		id = review.user_name_id
+		reviews = Review.objects.filter(user_name_id=profile_id)
+		print reviews
+		id = profile_id
 			
 	profile = Profile.objects.get(user_id=id)
-	reviews =Review.objects.all
-
+	print profile.location
+	print profile.user.username
+	
 	return render(request, 'profiles/profile_detail.html', {
-	'profile': profile.user, 'review': review, 'user': request.user, 'reviews': reviews
+	'profile': profile, 'reviews': reviews, 'user': request.user
 	})
 
 @login_required
@@ -130,4 +133,28 @@ def update_profile(request):
         'profile_form': profile_form,
     })
 
+class DeleteReview(View):
+	print 'delete_review'
+	def get_object(self, id):
+		try:
+			return Review.objects.get(id=id)
+		except Review.DoesNotExist:
+			raise Http404
+	
+	def get(self, request):
+		review_id = request.GET.get("reviewId")
+		print "review"
+		print review_id
+		if review_id:
+			review = get_object_or_404(Review, id=review_id)
+			if review.user_name_id == request.user.id:
+				review.delete()
+				message = {"status": "success", "message":  "review deleted" }
+			else:
+				message = {"status": "error", "message":  "invalid user" }
+		else:
+			message = {"status": "error", "message":  "review id not found" }
+			
+		return http.HttpResponse(json.dumps(message), content_type="application/json")
+								 
 	

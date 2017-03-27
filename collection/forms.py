@@ -8,13 +8,14 @@ class ReviewForm(ModelForm):
 		model = Review
 		fields = [ 'rating', 'comment']
 		widgets = {
-            'comment': Textarea(attrs={'cols': 40, 'rows': 5})
+            'comment': Textarea(attrs={'cols': 40, 'rows': 5, 'placeholder': 'What would you like to say?'}),
         }
 	def __init__(self, *args, **kwargs):
 		super(ReviewForm, self).__init__(*args, **kwargs)
 		self.fields['comment'].label = "Review"
 		self.fields['rating'].error_messages = {'required': 'Please enter a rating.'}
 		self.fields['comment'].error_messages = {'required': 'Please enter a review.'}
+		
 
 class UserForm(ModelForm):
 	class Meta:

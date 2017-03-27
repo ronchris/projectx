@@ -30,6 +30,7 @@ urlpatterns = [
 	url(r'^provinces/(?P<slug>[-\w]+)/$', views.province_detail, name='province_detail'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 	url(r'^destinations/(?P<destination_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
-#	url(r'^profiles/(?P<slug>[-\w]+)/edit_review/$', views.edit_review, name='edit_review'),
+#	url(r'^profiles/edit_review/$', views.EditReview.as_view(), name='edit_review'),
+	url(r'^profiles/delete_review/$', views.DeleteReview.as_view(), name='delete_review'),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
