@@ -65,11 +65,31 @@
 				
 				<hr>
 				{% for review in destination.review_set.all %}
-				<div class="review--box">
+				<div class="review--box reviewId">
+					{% for profile in profiles %}
+						{% if profile.user_id ==  review.user_name_id %}
+							{% if profile.image %}
+							 <img class="profile--img" src="{{ profile.image.url }}" height="45" width="45" />
+							 {% else %}
+							 <img class="profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="45" width="45" />
+							 {% endif %}
+						{% endif %}
+					{% endfor %}
 					<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.user_name_id %}">{{ review.user_name }}</a></p>
 					<div class="star-rating3" data-score="{{review.rating}}"></div>
+					{% for profile in profiles %}
+						{% if profile.user_id ==  review.user_name_id %}
+							<p class="review--profile-location">{{ profile.location }}</p>
+						{% endif %}
+					{% endfor %}
+					<p class="review--date--pub">{{ review.pub_date }}</p>
 					<p class="review--text">{{ review.comment }}</p>
-					<p>{{ review.pub_date }}</p>
+					
+					{% if request.user.id == review.user_name_id %}
+						<!--<a class="edit_review">Edit</a>-->
+						<a class="delete_review" data-reviewId={{ review.id }}>Delete</a>
+					{% endif %}
+					
 				</div>
 				{% endfor %}
 			</div>

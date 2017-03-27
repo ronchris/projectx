@@ -447,11 +447,12 @@ h6.destination--sub-heading {
 	margin-bottom: -2px;
 }
 .added--by--submit, .added--by--submit a {
-	font-size: 1em;
-	color: #687482;
-	font-weight: bold;
-	padding: 0px;
-	margin-bottom: 0px;
+    font-size: 1em;
+    color: #687482;
+    font-weight: bold;
+    padding: 0 5%;
+    margin-bottom: 0px;
+    margin-top: -5.5%;
 }
 .review-container {
 	margin-top: 2%;
@@ -463,8 +464,15 @@ h6.destination--sub-heading {
 	font-weight: bold;
 	color: #687482;
 }
+.review--date--pub {
+	margin-top: -2%;
+}
 .review--text {
 	margin-top: 2%;
+	font-size: 1.3em;
+}
+.review--profile-location, .review--date--pub, .review--text{
+	padding: 0 9.5%;
 }
 
 .coords {
@@ -578,5 +586,8 @@ h6.destination--sub-heading {
 }
 .profile--container {
 	padding-top: 5%;
+}
+.profile--img {
+	border-radius: 50%;
 }
 

@@ -39,15 +39,16 @@ class DestinationSearchView(View):
 				'munis': muni, 'provinces':province})
 		return render(request, 'ajax_search.html', {})
 	
-def destination_detail(request, slug):
+def destination_detail(request, slug, profile_id=None):
 	
 	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
+	profiles = Profile.objects.all()
 	form = ReviewForm()
 	print form
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles
 	})
 
 def muni_detail(request, slug):
@@ -80,6 +81,7 @@ def profile_detail(request, profile_id=None):
 	profile = Profile.objects.get(user_id=id)
 	print profile.location
 	print profile.user.username
+	reviews = Review.objects.all()
 	
 	return render(request, 'profiles/profile_detail.html', {
 	'profile': profile, 'reviews': reviews, 'user': request.user

@@ -12,9 +12,9 @@
 	
 	  <li>Location: {{ profile.location }}</li>
 	  {% if profile.image %}
-	  <img src="{{ profile.image.url }}" height="250" width="250" />
+	  <img class="profile--img" src="{{ profile.image.url }}" height="250" width="250" />
 	  {% else %}
-	  <img src="{{ MEDIA_URL }}/profiles/default.png" height="250" width="250" />
+	  <img class="profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="250" width="250" />
 	  {% endif %}
 	
 		  <ul>

@@ -2,6 +2,7 @@ $(document).ready(function(){
  
   console.log("ajax file");
 	
+  // search results
   $('#destination-search').keyup(function() {
     $.ajax({
 		type: 'GET',
@@ -15,6 +16,7 @@ $(document).ready(function(){
 	});
   });
   
+  // delete review
   $("body").on('click', ".delete_review", deleteReview);
 	
   function deleteReview(e) {
