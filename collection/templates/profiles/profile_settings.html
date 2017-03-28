@@ -8,10 +8,28 @@
 <div class="callout large secondary">
 	<div class="row">
 		<div class="large-8 columns">
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 			  {% csrf_token %}
 			  {{ user_form.as_p }}
 			  {{ profile_form.as_p }}
+			  <label for="id_image" style="
+					background: lightblue;
+					padding: 10px;
+					width: 20%;
+				">Select Image</label>
+			  <input id="id_image" name="image" type="file" style="
+				visibility: hidden;">
+				
+<!--
+			 {% if request.user.id == profile.user.id %}
+				{% for i in profile %}
+				 <img class="profile--img" src="{{ profile.image.url }}" height="250" width="250" />
+				{% endfor %}
+			 {% else %}
+	  			<img class="profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="250" width="250" />
+			 {% endif %}
+-->
+				
 			  <button type="submit">Save changes</button>
 			</form>
 		</div>

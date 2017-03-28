@@ -1,16 +1,24 @@
 
-{% extends 'base.html' %}
-{% block title %}
-    Logout - {{ block.super }}
-{% endblock title %}
+{% load staticfiles %}
 
-{% block content %}
-<div class="callout large secondary">
-	<div class="row">
-		<div class="large-4 columns">
-			<h1>Logged Out</h1>
-			<p>You have been logged out!</p>
-		</div>
-	</div>
+<!--stylesheets-->
+<link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
+
+
+<div class="login--leftblock">
+	<h1>likana</h1>
+	<p>Salamat!</p>
+	<p>We look forward to seeing you again!</p>
 </div>
-{% endblock content %}
+<div class="login--rightblock">
+	<div class="position--absolute--leftblock">
+		<a href="{% url 'home' %}"><img src="/media/login/exit_login.png" height="75" width="75" /></a>
+	</div>
+	<h1>Logged Out</h1>
+			<p>You have been logged out!</p>
+</div>
+
+

@@ -17,9 +17,11 @@
 	  <img class="profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="250" width="250" />
 	  {% endif %}
 	
+	  {% if request.user.id == profile.user.id %}
 		  <ul>
 			{% for review in reviews %}
 			  <div class="reviewId">
+				    <li>{{ review.destination }}</li>
 					<li>{{ review.comment }}</li>
 					<li>{{ review.rating }}</li>
 					{% if request.user.id == profile.user.id %}
@@ -28,8 +30,8 @@
 					{% endif %}
 			  </div>
 			{% endfor %}
-			
 		 </ul>
+	{% endif %}
 		
 	</ul>
 	{% if request.user.id == profile.user.id %}

@@ -81,10 +81,10 @@ def profile_detail(request, profile_id=None):
 	profile = Profile.objects.get(user_id=id)
 	print profile.location
 	print profile.user.username
-	reviews = Review.objects.all()
+	reviews = Review.objects.filter(user_name_id=profile_id)
 	
 	return render(request, 'profiles/profile_detail.html', {
-	'profile': profile, 'reviews': reviews, 'user': request.user
+	'profile': profile,  'reviews': reviews, 'user': request.user
 	})
 
 @login_required
@@ -113,13 +113,12 @@ def add_review(request, destination_id):
 
 
 @login_required
-@transaction.atomic
 def update_profile(request):
-	
+	profile = Profile.objects.all()
 	created = Profile.objects.get_or_create(user=request.user)
 	if request.method == 'POST':
 		user_form = UserForm(request.POST, instance=request.user)
-		profile_form = ProfileForm(request.POST, instance=request.user.profile)
+		profile_form = ProfileForm(request.POST,  request.FILES, instance=request.user.profile)
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()
 			profile_form.save()
@@ -132,7 +131,7 @@ def update_profile(request):
 		profile_form = ProfileForm(instance=request.user.profile)
     		return render(request, 'profiles/profile_settings.html', {
         'user_form': user_form,
-        'profile_form': profile_form,
+        'profile_form': profile_form, 'profile': profile
     })
 
 class DeleteReview(View):

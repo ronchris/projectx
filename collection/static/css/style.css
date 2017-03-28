@@ -278,6 +278,81 @@ img.thumbnail {
 	color: #ffffff;
 }
 
+/*login*/
+.login--leftblock {
+	width: 50%;
+	background-image: linear-gradient(to bottom, #f5515f, #9f031b);
+	float: left;
+	padding: 15% 2% 40% 6%;
+	color: #ffffff;
+	height: 100%;
+}
+.login--leftblock img {
+	max-width: none !important;
+}
+.login--leftblock h1 {
+	font-size: 4.5em;
+	font-weight: bold;
+	font-family: Gotham;
+}
+.login--leftblock p:nth-child(3) {
+	font-size: 0.8em;
+	font-weight: bold;
+}
+.login--rightblock {
+	width: 50%;
+	float: right;
+	padding: 15%;
+}
+.login--rightblock h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: Gotham;
+	color: #687482;
+}
+.position--absolute--leftblock {
+	position:absolute;
+	top: 1%;
+	margin-left: 27%;
+	cursor: pointer;
+}
+
+/*register*/
+.register--leftblock {
+	width: 50%;
+	background-image: linear-gradient(142deg, #3023ae, #c96dd8);
+	float: left;
+	padding: 15% 2% 50% 6%;
+	color: #ffffff;
+	height: 100%;
+}
+.register--leftblock h1 {
+	font-size: 4.5em;
+	font-weight: bold;
+	font-family: Gotham;
+}
+.register--leftblock p:nth-child(3) {
+	font-size: 0.8em;
+	font-weight: bold;
+}
+.register--rightblock {
+	width: 50%;
+	float: right;
+	padding: 10% 10% 15% 10%;
+}
+.register--rightblock h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: Gotham;
+	color: #687482;
+}
+.position--absolute--rightblock {
+	position:absolute;
+	top: 1%;
+	margin-left: 32%;
+	cursor: pointer;
+}
+
 
 /*footer styles*/
 .callout {
@@ -525,6 +600,23 @@ h6.destination--sub-heading {
 	font-weight: bold;
 	font-size: 1vw;
 	margin-bottom: 2%;
+}
+
+/*comments*/
+.comment--box--post {
+	border-radius: 50px;
+    background-color: #a2db68;
+    padding: 1.5% 0%;
+    width: 12%;
+    min-width: 130px;
+    font-size: 1.2em;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -3%;
+    color: #ffffff;
+	border: none;
+	float: right;
 }
 
 

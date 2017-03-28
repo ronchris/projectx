@@ -1,19 +1,28 @@
-{% extends 'base.html' %}
-{% block title %}
-    Login - {{ block.super }}
-{% endblock title %}
+{% load staticfiles %}
 
-{% block content %}
-<div class="callout large secondary">
-	<div class="row">
-		<div class="large-4 columns">
-			<h1>Login</h1>
-			<form role="form" action="" method="post">
-				{% csrf_token %}
-				{{ form.as_p }}
-				<input type="submit" value="Submit" />
-			</form>
-		</div>
-	</div>
+<!--stylesheets-->
+<link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
+
+
+<div class="login--leftblock">
+	<h1>likana</h1>
+	<p>Kamusta?</p>
+	<p>Welcome back! We can't waitfor you to search and plan your next trip!</p>
 </div>
-{% endblock content %}
+<div class="login--rightblock">
+	<div class="position--absolute--leftblock">
+		<a href="{% url 'home' %}"><img src="/media/login/exit_login.png" height="75" width="75" /></a>
+	</div>
+	<h1>Login</h1>
+	<form role="form" action="" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+	<p>New to likana? <a href="{% url 'registration_register' %}">Join now</a></p>
+</div>
+
+
