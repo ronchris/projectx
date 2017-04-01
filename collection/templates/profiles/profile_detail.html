@@ -31,14 +31,33 @@
 			  </div>
 			{% endfor %}
 		 </ul>
-	{% endif %}
+		
+		Comments
+		{% for comment in comments %}
+			{% if comment.review_id == review.id %}
+
+				<p>{{ comment.text }}</p>
+				<p> commented by {{ comment.user }}</p>
+				<p> commented on {{ comment.created_date }}</p>
+
+			{% endif %}
+
+			{% if profile.user.id == comment.user_id %}
+				<!--<a class="edit_review">Edit</a>-->
+				<a class="delete_comment" data-commentId={{ comment.id }}>Delete</a>
+			{% endif %}
+		{% endfor %}
+	  
+	  {% endif %}
 		
 	</ul>
 	{% if request.user.id == profile.user.id %}
 	<a href="{% url 'update_profile' %}">Edit Profile</a>
 	{% else %}
-
+	
 	{% endif %}
+	
+	
 </div>
 
 {% endblock %}

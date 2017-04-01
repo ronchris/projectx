@@ -110,6 +110,15 @@ $(document).ready(function(){
 		}
 	});
 	
+	// comments
+	$(".comment--box").hide();
+	
+	$(".comment--show-hide").click(function() {   
+		console.log("button clicked");
+			$(this).closest('div').find('.comment--box').toggle("slow");
+//		 	$(".comment--box").toggle("slow");
+	});
+	
 });
 
 	

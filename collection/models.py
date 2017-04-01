@@ -9,6 +9,7 @@ import numpy as np
 
 class Province(models.Model):
 	name = models.CharField(max_length=255)
+	author = models.CharField(max_length=255, blank=True, null=True)
 	kind = models.CharField(max_length=255)
 	address = models.CharField(max_length=255, blank=True, null=True)
 	description = models.TextField()
@@ -21,6 +22,7 @@ class Province(models.Model):
 	
 class Muni(models.Model):
 	name = models.CharField(max_length=255)
+	author = models.CharField(max_length=255, blank=True, null=True)
 	kind = models.CharField(max_length=255)
 	province = models.ForeignKey(Province, on_delete=models.CASCADE)
 	address = models.CharField(max_length=255, blank=True, null=True)
@@ -41,6 +43,7 @@ class Muni(models.Model):
 
 class Destination(models.Model):
 	name = models.CharField(max_length=255)
+	author = models.CharField(max_length=255, blank=True, null=True)
 	kind = models.CharField(max_length=255)
 	muni = models.ForeignKey(Muni, on_delete=models.CASCADE)
 	province = models.ForeignKey(Province, on_delete=models.CASCADE)
@@ -88,6 +91,13 @@ class Profile(models.Model):
 	bio = models.TextField(max_length=500, blank=True)
 	location = models.CharField(max_length=30, blank=True)
 	image = models.ImageField(null=True, blank=True)
+	
+class Comment(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	review = models.ForeignKey(Review, related_name="reviews")
+	author = models.CharField(max_length=200, null=True, blank=True)
+	text = models.TextField(null=True, blank=True)
+	created_date = models.DateTimeField('date published')
 	
 def create_user_profile(sender, user, request, **kwargs):
 	print "create_user_profile"

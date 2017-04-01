@@ -2,16 +2,17 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django import http
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from collection.models import Destination, Muni, Province, Review, Profile
+from collection.models import Destination, Muni, Province, Review, Profile, Comment
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.db.models import Q
-from collection.forms import ReviewForm, UserForm, ProfileForm
+from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.db import transaction
+from django.utils import timezone
 import json
 import datetime
 
@@ -44,11 +45,12 @@ def destination_detail(request, slug, profile_id=None):
 	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
 	profiles = Profile.objects.all()
+	comments = Comment.objects.all()
 	form = ReviewForm()
-	print form
+	comment_form = CommentForm()
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form
 	})
 
 def muni_detail(request, slug):
@@ -114,6 +116,7 @@ def add_review(request, destination_id):
 
 @login_required
 def update_profile(request):
+	
 	profile = Profile.objects.all()
 	created = Profile.objects.get_or_create(user=request.user)
 	if request.method == 'POST':
@@ -123,7 +126,7 @@ def update_profile(request):
 			user_form.save()
 			profile_form.save()
 			messages.success(request, ('Your profile was successfully updated!'))
-			return redirect('/profiles/')
+			return redirect('profile_detail', profile_id=request.user.id)
 		else:
 			messages.error(request, ('Please correct the error below.'))
 	else:
@@ -135,7 +138,7 @@ def update_profile(request):
     })
 
 class DeleteReview(View):
-	print 'delete_review'
+	print 'delete_comment'
 	def get_object(self, id):
 		try:
 			return Review.objects.get(id=id)
@@ -157,5 +160,62 @@ class DeleteReview(View):
 			message = {"status": "error", "message":  "review id not found" }
 			
 		return http.HttpResponse(json.dumps(message), content_type="application/json")
-								 
 	
+class DeleteComment(View):
+	print 'delete_comment'
+	def get_object(self, id):
+		try:
+			return Comment.objects.get(id=id)
+		except Comment.DoesNotExist:
+			raise Http404
+	
+	def get(self, request):
+		comment_id = request.GET.get("commentId")
+		print "review"
+		print comment_id
+		if comment_id:
+			comment = get_object_or_404(Comment, id=comment_id)
+			if comment.user_id == request.user.id:
+				comment.delete()
+				message = {"status": "success", "message":  "comment deleted" }
+			else:
+				message = {"status": "error", "message":  "invalid user" }
+		else:
+			message = {"status": "error", "message":  "comment id not found" }
+			
+		return http.HttpResponse(json.dumps(message), content_type="application/json")
+
+@login_required
+def add_comment_to_review(request, destination_id, review_id):
+	print "destination_id"
+	review_id = request.GET.get("reviewId")
+	destination_id = request.GET.get("destinationId")
+	destination = get_object_or_404(Destination, pk=destination_id)
+	if request.method =="GET":
+		comment_form = CommentForm(request.GET)
+		if request.GET.get('text'):
+#	   if comment_form.is_valid():
+#			text = comment_form.cleaned_data['text']
+			comment = Comment()
+			comment.text = request.GET.get('text')
+#          comment.text = text
+			comment.created_date = str(datetime.datetime.now())
+			comment.review_id = review_id
+			comment.user_id = request.user.id
+			comment.save()
+			data = {
+				"datetime": comment.created_date,
+				"username": request.user.username,
+				"text": comment.text,
+				"id": comment.id
+			}
+			message = {"status": "success", "message":  data }
+		else:
+			message = {"status": "error", "message":  "Please enter a comment."}
+#	return redirect('destination_detail', slug=destination.slug)
+	return http.HttpResponse(json.dumps(message), content_type="application/json")
+
+
+
+
+

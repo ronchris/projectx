@@ -1,10 +1,10 @@
 from django.contrib import admin
-from collection.models import Destination, Muni, Province, Upload, Review, Profile
+from collection.models import Destination, Muni, Province, Upload, Review, Profile, Comment
 
 # set up automated slug creation
 class DestinationAdmin(admin.ModelAdmin):
 	model = Destination
-	list_display = ('name', 'muni', 'province', 'address', 'description', 'features', 'activities', 'misc', 'coords',  'slug', 'user', 'image')
+	list_display = ('name', 'author', 'muni', 'province', 'address', 'description', 'features', 'activities', 'misc', 'coords',  'slug', 'user', 'image')
 	prepopulated_fields = {'slug': ('name',)}
 
 # and register it
@@ -48,3 +48,10 @@ class ProfileAdmin(admin.ModelAdmin):
 	
 # and register it
 admin.site.register(Profile, ProfileAdmin)
+
+class CommentAdmin(admin.ModelAdmin):
+	model = Comment
+	list_display = ('user', 'review', 'author', 'text', 'created_date')
+	
+# and register it
+admin.site.register(Comment, CommentAdmin)

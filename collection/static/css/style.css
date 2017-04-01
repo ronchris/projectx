@@ -353,6 +353,15 @@ img.thumbnail {
 	cursor: pointer;
 }
 
+/*pages*/
+.content--wrapper {
+	margin-top: 5%;
+}
+
+/*muni*/
+.muni--detail--top--box {
+	background-color:  #ebecee !important;
+}
 
 /*footer styles*/
 .callout {
@@ -603,6 +612,9 @@ h6.destination--sub-heading {
 }
 
 /*comments*/
+.comment--box {
+	padding: 2% 5% 2% 15%;
+}
 .comment--box--post {
 	border-radius: 50px;
     background-color: #a2db68;
