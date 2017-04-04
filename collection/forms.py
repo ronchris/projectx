@@ -32,7 +32,7 @@ class CommentForm(ModelForm):
 		model = Comment
 		fields = ['text']
 		widgets = {
-            'text': Textarea(attrs={'cols': 40, 'rows': 2, 'placeholder': 'Ask a question or leave a comment!', 'required': True}),
+            'text': Textarea(attrs={'cols': 50, 'rows': 2, 'placeholder': 'Ask a question or leave a comment!', 'required': True}),
         }
 	def __init__(self, *args, **kwargs):
 		super(CommentForm, self).__init__(*args, **kwargs)

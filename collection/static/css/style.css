@@ -1,11 +1,21 @@
 * {
 	font-family: 'Avenir Next', Gotham, Poppins, Helvetica;
+	outline: none; 
 }
 header{
 	position: fixed;
 	width: 100%;
 	z-index: 20;
 	border-bottom: 1px solid #f3f3f3;
+}
+.container {
+	padding-top: 4%;
+}
+label {
+	display: none;
+}
+button:hover {
+	opacity: 0.8;
 }
 .destination {
 	padding: 25px 0 50px;
@@ -450,22 +460,60 @@ img.thumbnail {
 	color: #687482;
 	font-weight: bold;
 	margin-bottom: -2px;
+	margin-top: 1%;
 }
 .posted--by--name {
 	font-size: 1em;
 	color: #687482;
 	font-weight: normal;
+	margin-left: 8%;
 }
-.description {
-	font-size:1.2em; 
-	padding-top:3%;
+.profile--img {
+	margin-top: -2%;
+}
+.destination--description {
+	font-size: 1.2em; 
+	padding-top: 8%;
 	color: #687482;
 }
 h6.destination--sub-heading {
 	padding-top: 10px;
 	color: #687482 !important; 
 }
-
+.about-line-left {
+	border-top: 1px solid #e6e6e6;
+	width: 40%;
+	margin-left: 2%;
+	margin-top: 8%;
+}
+.about-center-text {
+	width: 15%;
+	margin-left: 45%;
+	font-weight: bold;
+	color: #687482;
+	margin-top: -1.3%;
+	font-size: 1.3em;
+}
+.about-line-right {
+	border-top: 1px solid #e6e6e6;
+	width: 43%;
+	margin-left: 55%;
+	margin-top: -1.5%;
+}
+#tabs {
+	margin-top: 5%;
+}
+.ui-widget-content {
+   border: none !important;
+   background: none !important;
+   color: none !important;
+}
+.ui-widget-header {
+ 	border: none !important;
+ 	background: none !important; 
+ 	color:  none !important; 
+	font-weight: normal;
+}
 
 /*province page styles*/
 .province--bg, .province--heading, .province--heading h2,  .province--heading p, .destination h5, #province--info h5 {
@@ -542,7 +590,7 @@ h6.destination--sub-heading {
 	margin-top: 2%;
 	font-family: Gotham, Poppins, Helvetica;
 }
-.review-container span{
+.review-container span {
 	font-family: Gotham, Poppins, Helvetica;
 	font-size: 1.2em;
 	font-weight: bold;
@@ -555,10 +603,21 @@ h6.destination--sub-heading {
 	margin-top: 2%;
 	font-size: 1.3em;
 }
-.review--profile-location, .review--date--pub, .review--text{
+.review--profile-location, .review--date--pub, .review--text {
 	padding: 0 9.5%;
 }
-
+.review--form--title {
+	font-weight: bold;
+	margin-bottom: -8%;
+	margin-top: 5%;
+	color: #687482;
+}
+.rating--message--form {
+	color: #687482;
+    margin-bottom: 4%;
+    margin-top: -2.5%;
+	margin-left: 15%;
+}
 .coords {
 	visibility: hidden;
 }
@@ -613,7 +672,7 @@ h6.destination--sub-heading {
 
 /*comments*/
 .comment--box {
-	padding: 2% 5% 2% 15%;
+	padding: 2% 5% 3% 15%;
 }
 .comment--box--post {
 	border-radius: 50px;
@@ -625,12 +684,18 @@ h6.destination--sub-heading {
     white-space: nowrap;
     font-weight: bold;
     text-align: center;
-    margin-top: -3%;
+    margin-top: -1.2%;
     color: #ffffff;
 	border: none;
 	float: right;
 }
-
+.comment--show-hide {
+	margin-left: 9.5%;
+	color: #687482;
+}
+.comment-error {
+	color: red;
+}
 
 /*star ratings*/
 #star-rating, #num-stars, #id_rating, #num-stars2 {
@@ -640,19 +705,29 @@ h6.destination--sub-heading {
 	color: #ff0000;
 }
 .star-rating {
-	margin-left: -0.6%;
+    margin-top: -6.5%;
+    margin-bottom: 8%;
+	margin-left: 25%;
 }
 .star-rating2 {
-	margin-top: -25%;
-	margin-bottom: 25%
+	margin-top: 0%;
+	margin-bottom: 0%
 }
 .star-rating3 {
     margin-top: -2%;
     float: right;
 }
+#review--count--num {
+	font-size: 2em;
+	margin-top: -20%;
+    margin-left: 43%;
+	margin-bottom: 15%;
+}
 #review--count {
-    margin-top: -10%;
-    margin-left: 20%;
+    margin-top: -16%;
+    margin-left: 43%;
+	font-size: 1.2em;
+	font-weight: normal;
 }
 #last--container {
 	overflow: auto;

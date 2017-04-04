@@ -54,7 +54,8 @@ $(document).ready(function(){
 	if (!commentForm) return;
 	var text = commentForm.find('textarea').val();
 	  if (!text || !text.trim()) {
-		  $(".comment-error").html("Please enter a comment.");
+		  // $(".comment-error").html("Please enter a comment.");
+		  button.next().html("Please enter a comment.");
 	  }
 	 var form  = commentForm.parent();
 	 var uri = form.attr('action');
@@ -85,12 +86,13 @@ $(document).ready(function(){
 								  data.message.id + '">';
 				html += '<p>' + data.message.text + '</p>';
 				html += '<p> commented by ' + data.message.username + '</p>';
-				html += '<p> commented on ' + moment().format(data.message.datetime); + '</p>';
+				html += '<p> commented on ' + moment(data.message.datetime).format('LLL'); + '</p>';
 				html += '<br><br><a class="delete_comment" data-commentId="' + data.message.id + '">'
 				html += 'Delete</a>';
 				html += '</div>';
 									
 				$(id).append(html); 
+				$('textarea').val("");
 			}
 		},
 		error: function(error) {

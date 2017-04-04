@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="{% static 'css/star-rating.css' %}">
 		<link rel="stylesheet" href="{% static 'css/labs.css' %}">
 		<link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		
 		<!-- scripts -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -30,6 +31,7 @@
 		<script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
 		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		<script type="text/javascript" src="{% static 'js/moment.js' %}"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     </head>
     <body>
@@ -75,8 +77,11 @@
 		</header>
 		{% endblock header %}
 		
-        {% block content %}
+		<div class="container">
+		{% block content %}
 		{% endblock content %}
+		</div>
+        
 		
         {% block footer %}
 		<div class="callout large secondary">

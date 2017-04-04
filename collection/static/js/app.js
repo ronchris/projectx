@@ -92,7 +92,8 @@ $(document).ready(function(){
   		target: '#id_rating',
 		targetType: 'number',
 		readOnly: false, 
-		targetKeep: true
+		targetKeep: true,
+		// targetText : '0',
 	});
 	
 	$('div.star-rating2 i').removeAttr("title");
@@ -116,7 +117,16 @@ $(document).ready(function(){
 	$(".comment--show-hide").click(function() {   
 		console.log("button clicked");
 			$(this).closest('div').find('.comment--box').toggle("slow");
-//		 	$(".comment--box").toggle("slow");
+			if ($(this).text() == "Comment") { 
+				$(this).text("hide comment(s)").css("font-weight", "bold"); 
+			} else { 
+				$(this).text("Comment").css("font-weight", "bold"); 
+			}; 
+	});
+	
+	// tabs for reviews/comments
+	$( function() {
+		$( "#tabs" ).tabs();
 	});
 	
 });
