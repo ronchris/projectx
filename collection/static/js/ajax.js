@@ -42,7 +42,7 @@ $(document).ready(function(){
 		});//end ajax
   }
   
-  // delete review
+  // delete question
   $("body").on('click', ".delete_question", deleteQuestion);
 	
   function deleteQuestion(e) {
@@ -68,10 +68,10 @@ $(document).ready(function(){
 		});//end ajax
   }
 	
-  // add comment
-  $(".comment--box--post").on("click", addComment);
+  // add comment to review
+  $(".comment--box--post").on("click", addCommentToReview);
 	
-  function addComment(e) {
+  function addCommentToReview(e) {
 	console.log("i am clicked")
 	e.preventDefault();
 	var button = $(this);
@@ -109,6 +109,65 @@ $(document).ready(function(){
 			var id = "#review-" + reviewId;
 			if (data && data.status == "success") {
 				var html = 	'<div class="comment--text" id="comment-' + 
+								  data.message.id + '">';
+				html += '<p>' + data.message.text + '</p>';
+				html += '<p> commented by ' + data.message.username + '</p>';
+				html += '<p> commented on ' + moment(data.message.datetime).format('LLL'); + '</p>';
+				html += '<br><br><a class="delete_comment" data-commentId="' + data.message.id + '">'
+				html += 'Delete</a>';
+				html += '</div>';
+									
+				$(id).append(html); 
+				$('textarea').val("");
+			}
+		},
+		error: function(error) {
+			
+		},
+     });//end ajax
+  }
+
+  // add comment to question
+  $(".comment--box--submit").on("click", addCommentToQuestion);
+	
+  function addCommentToQuestion(e) {
+	console.log("i am clicked")
+	e.preventDefault();
+	var button = $(this);
+	var commentQForm = button.prev('.commentq-form');
+	console.log(commentQForm)
+	if (!commentQForm) return;
+	var text = commentQForm.find('textarea').val();
+	  if (!text || !text.trim()) {
+		  // $(".comment-error").html("Please enter a comment.");
+		  button.next().html("Please enter a comment.");
+	  }
+	 var form  = commentQForm.parent();
+	 var uri = form.attr('action');
+	 console.log(uri.split('/'))
+	 console.log(uri.split('/')[4]);
+	 questionId = Number(uri.split('/')[4]);
+	 destinationId = Number(uri.split('/')[2]);
+	 console.log(questionId);
+	 console.log(text)
+	 var commentQId = button.attr("data-commentQId");
+	 // console.log(reviewId);
+	 // get id from template
+	$.ajax({
+		type: "GET",
+		url: "/destinations/" + destinationId + "/add_comment_to_question/" + questionId,
+		beforeSend: function(xhr, settings) {
+			//if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            	xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+        	//}//
+    	},
+		data: {'questionId': questionId,  'destinationId': destinationId, text: text},
+		success: function(data) {
+			console.log(data);
+			console.log(data.message.datetime);
+			var id = "#review-" + questionId;
+			if (data && data.status == "success") {
+				var html = 	'<div class="comment--text" id="commentQ-' + 
 								  data.message.id + '">';
 				html += '<p>' + data.message.text + '</p>';
 				html += '<p> commented by ' + data.message.username + '</p>';

@@ -2,11 +2,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django import http
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from collection.models import Destination, Muni, Province, Review, Profile, Comment, Question
+from collection.models import Destination, Muni, Province, Review, Profile, Comment, Question, CommentQ
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.db.models import Q
-from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm, QuestionForm
+from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm, QuestionForm, CommentQForm
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
@@ -28,6 +28,7 @@ class IndexView(View):
 		'destinations': destinations, 'munis': munis,
 	})
 
+	
 class DestinationSearchView(View):
 
     def get(self, request):
@@ -40,20 +41,24 @@ class DestinationSearchView(View):
 				'munis': muni, 'provinces':province})
 		return render(request, 'ajax_search.html', {})
 	
+	
 def destination_detail(request, slug, profile_id=None):
 	
 	destination = Destination.objects.get(slug=slug)
 	uploads = destination.uploads.all()
 	profiles = Profile.objects.all()
 	comments = Comment.objects.all()
+	commentqs = CommentQ.objects.all()
 	question = Question.objects.all()
 	form = ReviewForm()
 	comment_form = CommentForm()
+	commentq_form = CommentQForm()
 	question_form = QuestionForm()
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form, 'commentq_form': commentq_form, 'commentqs': commentqs
 	})
+
 
 def muni_detail(request, slug):
 	
@@ -64,6 +69,7 @@ def muni_detail(request, slug):
 	'muni': muni, 'destinations': destinations
 	})
 
+
 def province_detail(request, slug):
 	
 	province = Province.objects.get(slug=slug)
@@ -72,6 +78,7 @@ def province_detail(request, slug):
 	return render(request, 'provinces/province_detail.html', {
 	'province': province, 'munis': munis
 	})
+
 
 def profile_detail(request, profile_id=None):
 	
@@ -90,6 +97,7 @@ def profile_detail(request, profile_id=None):
 	return render(request, 'profiles/profile_detail.html', {
 	'profile': profile,  'reviews': reviews, 'user': request.user
 	})
+
 
 @login_required
 def add_review(request, destination_id):
@@ -161,6 +169,7 @@ def update_profile(request):
         'profile_form': profile_form, 'profile': profile
     })
 
+		
 class DeleteReview(View):
 	print 'delete_comment'
 	def get_object(self, id):
@@ -185,6 +194,7 @@ class DeleteReview(View):
 			
 		return http.HttpResponse(json.dumps(message), content_type="application/json")
 
+	
 class DeleteQuestion(View):
 	print 'delete_comment'
 	def get_object(self, id):
@@ -209,6 +219,7 @@ class DeleteQuestion(View):
 			
 		return http.HttpResponse(json.dumps(message), content_type="application/json")
 
+	
 class DeleteComment(View):
 	print 'delete_comment'
 	def get_object(self, id):
@@ -263,6 +274,7 @@ def add_comment_to_review(request, destination_id, review_id):
 #	return redirect('destination_detail', slug=destination.slug)
 	return http.HttpResponse(json.dumps(message), content_type="application/json")
 
+
 @login_required
 def add_comment_to_question(request, destination_id, question_id):
 	print "destination_id"
@@ -270,22 +282,22 @@ def add_comment_to_question(request, destination_id, question_id):
 	destination_id = request.GET.get("destinationId")
 	destination = get_object_or_404(Destination, pk=destination_id)
 	if request.method =="GET":
-		comment_form = CommentForm(request.GET)
+		commentq_form = CommentQForm(request.GET)
 		if request.GET.get('text'):
 #	   if comment_form.is_valid():
 #			text = comment_form.cleaned_data['text']
-			comment = Comment()
-			comment.text = request.GET.get('text')
+			commentq = Comment()
+			commentq.text = request.GET.get('text')
 #          comment.text = text
-			comment.created_date = str(datetime.datetime.now())
-			comment.review_id = review_id
-			comment.user_id = request.user.id
-			comment.save()
+			commentq.created_date = str(datetime.datetime.now())
+			commentq.question_id = question_id
+			commentq.user_id = request.user.id
+			commentq.save()
 			data = {
-				"datetime": comment.created_date,
+				"datetime": commentq.created_date,
 				"username": request.user.username,
-				"text": comment.text,
-				"id": comment.id
+				"text": commentq.text,
+				"id": commentq.id
 			}
 			message = {"status": "success", "message":  data }
 		else:

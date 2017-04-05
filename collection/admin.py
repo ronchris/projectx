@@ -1,5 +1,5 @@
 from django.contrib import admin
-from collection.models import Destination, Muni, Province, Upload, Review, Profile, Comment, Question
+from collection.models import Destination, Muni, Province, Upload, Review, Profile, Comment, Question, CommentQ
 
 # set up automated slug creation
 class DestinationAdmin(admin.ModelAdmin):
@@ -55,6 +55,13 @@ class CommentAdmin(admin.ModelAdmin):
 	
 # and register it
 admin.site.register(Comment, CommentAdmin)
+
+class CommentQAdmin(admin.ModelAdmin):
+	model = CommentQ
+	list_display = ('user', 'question', 'author', 'text', 'created_date')
+	
+# and register it
+admin.site.register(CommentQ, CommentQAdmin)
 
 class QuestionAdmin(admin.ModelAdmin):
 	model = Question

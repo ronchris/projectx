@@ -103,6 +103,12 @@ class Profile(models.Model):
 class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	review = models.ForeignKey(Review, related_name="reviews")
+	author = models.CharField(max_length=200, null=True, blank=True)
+	text = models.TextField(null=True, blank=True)
+	created_date = models.DateTimeField('date published')
+	
+class CommentQ(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	question = models.ForeignKey(Question, related_name="questions")
 	author = models.CharField(max_length=200, null=True, blank=True)
 	text = models.TextField(null=True, blank=True)

@@ -670,11 +670,49 @@ h6.destination--sub-heading {
 	margin-bottom: 2%;
 }
 
+/*questions*/
+.question--form--title {
+	font-weight: bold;
+	margin-bottom: 0%;
+	margin-top: 5%;
+	color: #687482;
+}
+.question--by--post {
+	border-radius: 50px;
+    background-color: #a2db68;
+    padding: 1.5% 0%;
+    width: 6%;
+    min-width: 100px;
+    font-size: 1.2em;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0%;
+    color: #ffffff;
+	border: none;
+	float: right;
+}
+
 /*comments*/
 .comment--box {
 	padding: 2% 5% 3% 15%;
 }
 .comment--box--post {
+	border-radius: 50px;
+    background-color: #a2db68;
+    padding: 1.5% 0%;
+    width: 12%;
+    min-width: 130px;
+    font-size: 1.2em;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -1.2%;
+    color: #ffffff;
+	border: none;
+	float: right;
+}
+.comment--box--submit {
 	border-radius: 50px;
     background-color: #a2db68;
     padding: 1.5% 0%;
