@@ -286,7 +286,7 @@ def add_comment_to_question(request, destination_id, question_id):
 		if request.GET.get('text'):
 #	   if comment_form.is_valid():
 #			text = comment_form.cleaned_data['text']
-			commentq = Comment()
+			commentq = CommentQ()
 			commentq.text = request.GET.get('text')
 #          comment.text = text
 			commentq.created_date = str(datetime.datetime.now())
@@ -305,6 +305,30 @@ def add_comment_to_question(request, destination_id, question_id):
 #	return redirect('destination_detail', slug=destination.slug)
 	return http.HttpResponse(json.dumps(message), content_type="application/json")
 
+
+class DeleteCommentQ(View):
+	print 'delete_commentq'
+	def get_object(self, id):
+		try:
+			return CommentQ.objects.get(id=id)
+		except CommentQ.DoesNotExist:
+			raise Http404
+	
+	def get(self, request):
+		commentq_id = request.GET.get("commentQId")
+		print "review"
+		print commentq_id
+		if commentq_id:
+			commentq = get_object_or_404(CommentQ, id=commentq_id)
+			if commentq.user_id == request.user.id:
+				commentq.delete()
+				message = {"status": "success", "message":  "comment deleted" }
+			else:
+				message = {"status": "error", "message":  "invalid user" }
+		else:
+			message = {"status": "error", "message":  "comment id not found" }
+			
+		return http.HttpResponse(json.dumps(message), content_type="application/json")
 
 
 

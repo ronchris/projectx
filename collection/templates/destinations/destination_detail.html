@@ -155,14 +155,23 @@
 					<button class="comment--show-hide"><strong>Comment</strong></button>
 					<div class="comment--box">
 						<div class="commentId" id="review-{{ review.id }}">
-						{% for comment in comments %}
+						{% for comment in comments reversed %}
 
 							{% if comment.review_id == review.id %}
 
 								<div class="comment--text" id="comment-{{ comment.id }}">
+									{% for profile in profiles %}
+										{% if profile.user_id ==  comment.user_id %}
+											{% if profile.image %}
+											 <img class="comment--profile--img" src="{{ profile.image.url }}" height="45" width="45" />
+											 {% else %}
+											 <img class="comment--profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="45" width="45" />
+											 {% endif %}
+										{% endif %}
+									{% endfor %}
 									<p>{{ comment.text }}</p>
-									<p> commented by {{ comment.user }}</p>
-									<p> commented on {{ comment.created_date }}</p>
+									<p>{{ comment.user }}</p>
+									<p>{{ comment.created_date }}</p>
 								
 									{% if request.user.id == comment.user_id %}
 										<!--<a class="edit_review">Edit</a>-->
@@ -230,7 +239,7 @@
 					<button class="comment--show-hide"><strong>Comment</strong></button>
 					<div class="comment--box">
 						<div class="commentQId" id="question-{{ question.id }}">
-						{% for commentq in commentqs %}
+						{% for commentq in commentqs reversed %}
 
 							{% if commentq.question_id == question.id %}
 
@@ -241,7 +250,7 @@
 								
 									{% if request.user.id == commentq.user_id %}
 										<!--<a class="edit_review">Edit</a>-->
-										<a class="delete_comment" data-commentQId={{ commentq.id }}>Delete</a>
+										<a class="delete_commentq" data-commentQId={{ commentq.id }}>Delete</a>
 									{% endif %}
 								</div>
 
@@ -257,7 +266,6 @@
 							<input id="commentqInput" class="comment--box--submit" type="submit" value="Comment" />
 							<p class="comment-error"></p>
 						</form>
-						
 						{% endif %}
 				
 					</div>

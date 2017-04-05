@@ -734,6 +734,10 @@ h6.destination--sub-heading {
 .comment-error {
 	color: red;
 }
+.comment--profile--img {
+	margin-left: -7%;
+	border-radius: 50%;
+}
 
 /*star ratings*/
 #star-rating, #num-stars, #id_rating, #num-stars2 {

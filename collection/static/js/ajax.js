@@ -165,14 +165,14 @@ $(document).ready(function(){
 		success: function(data) {
 			console.log(data);
 			console.log(data.message.datetime);
-			var id = "#review-" + questionId;
+			var id = "#question-" + questionId;
 			if (data && data.status == "success") {
 				var html = 	'<div class="comment--text" id="commentQ-' + 
 								  data.message.id + '">';
 				html += '<p>' + data.message.text + '</p>';
 				html += '<p> commented by ' + data.message.username + '</p>';
 				html += '<p> commented on ' + moment(data.message.datetime).format('LLL'); + '</p>';
-				html += '<br><br><a class="delete_comment" data-commentId="' + data.message.id + '">'
+				html += '<br><br><a class="delete_commentq" data-commentQId="' + data.message.id + '">'
 				html += 'Delete</a>';
 				html += '</div>';
 									
@@ -190,6 +190,7 @@ $(document).ready(function(){
   $("body").on('click', ".delete_comment", deleteComment);
 	
   function deleteComment(e) {
+	return console.log($(this));
 	e.preventDefault();
 	var button = $(this);
 	console.log(button);
@@ -203,6 +204,37 @@ $(document).ready(function(){
 		success: function(data) {
 			console.log(data);
 			var id = "#comment-" + commentId;
+			console.log(id);
+			console.log($(id))
+			if (data && data.status == "success") {
+				$(id).remove();
+				console.log("comment removed");
+			}
+		},
+		error: function(error) {
+				console.log(error.responseText);
+			},
+		});//end ajax
+   }
+	
+   // delete comment
+  $("body").on('click', ".delete_commentq", deleteCommentQ);
+	
+  function deleteCommentQ(e) {
+//	return console.log($(this));
+	e.preventDefault();
+	var button = $(this);
+	console.log(button);
+	var commentQId = button.attr("data-commentQId");
+	console.log(commentQId);
+	// get id from template
+	$.ajax({
+		type: "GET",
+		url: "/profiles/delete_commentq/",
+		data: {'commentQId': commentQId },
+		success: function(data) {
+			console.log(data);
+			var id = "#commentQ-" + commentQId;
 			console.log(id);
 			console.log($(id))
 			if (data && data.status == "success") {

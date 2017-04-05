@@ -36,5 +36,6 @@ urlpatterns = [
 	url(r'^profiles/delete_review/$', views.DeleteReview.as_view(), name='delete_review'),
 	url(r'^profiles/delete_question/$', views.DeleteQuestion.as_view(), name='delete_question'),
 	url(r'^profiles/delete_comment/$', views.DeleteComment.as_view(), name='delete_comment'),
+	url(r'^profiles/delete_commentq/$', views.DeleteCommentQ.as_view(), name='delete_commentq'),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
