@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea
-from collection.models import Review, Profile, Comment
+from collection.models import Review, Profile, Comment, Question
 from django.contrib.auth.models import User
 
 
@@ -15,7 +15,14 @@ class ReviewForm(ModelForm):
 		self.fields['comment'].label = "Review"
 #		self.fields['rating'].error_messages = {'required': 'Please enter a rating.'}
 #		self.fields['comment'].error_messages = {'required': 'Please enter a review.'}
-		
+
+class QuestionForm(ModelForm):
+	class Meta:
+		model = Question
+		fields = [ 'message']
+		widgets = {
+            'message': Textarea(attrs={'cols': 40, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
+        }
 
 class UserForm(ModelForm):
 	class Meta:

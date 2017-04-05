@@ -42,6 +42,32 @@ $(document).ready(function(){
 		});//end ajax
   }
   
+  // delete review
+  $("body").on('click', ".delete_question", deleteQuestion);
+	
+  function deleteQuestion(e) {
+	e.preventDefault();
+	var button = $(this);
+	console.log(button);
+	var questionId = button.attr("data-questionId");
+	console.log(questionId);
+	// get id from template
+	$.ajax({
+		type: "GET",
+		url: "/profiles/delete_question/",
+		data: {'questionId': questionId },
+		success: function(data) {
+			console.log(data);
+			if (data && data.status == "success") {
+				button.parents(".questionId").remove();
+			}
+		},
+		error: function(error) {
+				console.log(error.responseText)
+			},
+		});//end ajax
+  }
+	
   // add comment
   $(".comment--box--post").on("click", addComment);
 	

@@ -99,18 +99,18 @@
 			{% if not user_posted %}
 			<div class="review-container" id="last--container">
 				{% if user.is_authenticated %}
-					<form action="{% url 'add_review' destination.id %}" method="post">
+					<form action="{% url 'add_question' destination.id %}" method="post">
 						{% csrf_token %}
-						{{ form.as_p }}
-						<input id="reviewInput" class="review--by--post" type="submit" value="Post" />
+						{{ question_form.as_p }}
+						<input id="reviewInput" class="review--by--post" type="submit" value="Submit" />
 						{% if messages %}
 							{% for message in messages %}
-								<p style="color: red;">Please add a review and a rating.</p>
+								<p style="color: red;">Please ask a question or leave a comment.</p>
 							{% endfor %}
 						{% endif %}
 					</form>
 				{% else %}
-					<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
+					<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave ask a question or leave a comment.</p>
 				{% endif %}
 			</div>
 			{% endif %}
@@ -193,6 +193,81 @@
 			</div>
 			{% else %}
 			<p>No reviews for this destination yet</p>
+			{% endif %}
+		</div>
+		
+		
+		<div class="review-container">
+			{% if destination.question_set.all %}
+			<div>				
+				{% for question in destination.question_set.all %}
+				<div class="review--box questionId">
+					{% for profile in profiles %}
+						{% if profile.user_id ==  review.user_name_id %}
+							{% if profile.image %}
+							 <img class="profile--img" src="{{ profile.image.url }}" height="45" width="45" />
+							 {% else %}
+							 <img class="profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="45" width="45" />
+							 {% endif %}
+						{% endif %}
+					{% endfor %}
+					<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=question.user_name_id %}">{{ question.user_name }}</a></p>
+
+					{% for profile in profiles %}
+						{% if profile.user_id == question.user_name_id %}
+							<p class="review--profile-location">{{ profile.location }}</p>
+						{% endif %}
+					{% endfor %}
+					<p class="review--date--pub">{{ question.pub_date }}</p>
+					<p class="review--text">{{ question.message }}</p>
+
+					{% if question.user.id == rquestion.user_name_id %}
+						<!--<a class="edit_review">Edit</a>-->
+						<a class="delete_question" data-questionId={{ question.id }}>Delete</a>
+					{% endif %}
+					
+					<br>
+					<button class="comment--show-hide"><strong>Comment</strong></button>
+					<div class="comment--box">
+						<div class="commentId" id="question-{{ question.id }}">
+						{% for comment in comments %}
+
+							{% if comment.question_id == question.id %}
+
+								<div class="comment--text" id="comment-{{ comment.id }}">
+									<p>{{ comment.text }}</p>
+									<p> commented by {{ comment.user }}</p>
+									<p> commented on {{ comment.created_date }}</p>
+								
+									{% if request.user.id == comment.user_id %}
+										<!--<a class="edit_review">Edit</a>-->
+										<a class="delete_comment" data-commentId={{ comment.id }}>Delete</a>
+									{% endif %}
+								</div>
+
+							{% endif %}
+
+						{% endfor %}
+						</div>
+						{% if user.is_authenticated %}
+						<form action="{% url 'add_comment_to_question' destination.id question.id %}" method="post">
+							{% csrf_token %}
+							<div class="comment-form">{{ question_form.as_p }}</div>
+							
+							<input id="commentInput" class="comment--box--post" type="submit" value="Comment" />
+							<p class="comment-error"></p>
+						</form>
+						
+						{% endif %}
+				
+					</div>
+					
+				</div>
+				{% endfor %}
+			
+			</div>
+			{% else %}
+			<p>No questions or comments for this destination yet</p>
 			{% endif %}
 		</div>
 		

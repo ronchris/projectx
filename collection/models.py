@@ -70,7 +70,7 @@ def get_image_path(instance, filename):
 class Upload(models.Model):
 	destination = models.ForeignKey(Destination, related_name="uploads")
 	image = models.ImageField(upload_to=get_image_path)
-	
+
 class Review(models.Model):
 	RATING_CHOICES = (
 		(0,'0'),
@@ -86,9 +86,16 @@ class Review(models.Model):
 	comment = models.TextField(blank=False)
 	rating = models.IntegerField(choices=RATING_CHOICES, blank=False)
 	
+class Question(models.Model):
+	destination = models.ForeignKey(Destination)
+	pub_date = models.DateTimeField('date published')
+	user_name = models.ForeignKey(User)
+	message = models.TextField(blank=False)	
+	
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	review = models.ForeignKey(Review, null=True, blank=True)
+	question = models.ForeignKey(Question, null=True, blank=True)
 	bio = models.TextField(max_length=500, blank=True)
 	location = models.CharField(max_length=30, blank=True)
 	image = models.ImageField(null=True, blank=True)
@@ -96,6 +103,7 @@ class Profile(models.Model):
 class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	review = models.ForeignKey(Review, related_name="reviews")
+	question = models.ForeignKey(Question, related_name="questions")
 	author = models.CharField(max_length=200, null=True, blank=True)
 	text = models.TextField(null=True, blank=True)
 	created_date = models.DateTimeField('date published')

@@ -2,11 +2,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django import http
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from collection.models import Destination, Muni, Province, Review, Profile, Comment
+from collection.models import Destination, Muni, Province, Review, Profile, Comment, Question
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.db.models import Q
-from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm
+from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm, QuestionForm
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
@@ -46,11 +46,13 @@ def destination_detail(request, slug, profile_id=None):
 	uploads = destination.uploads.all()
 	profiles = Profile.objects.all()
 	comments = Comment.objects.all()
+	question = Question.objects.all()
 	form = ReviewForm()
 	comment_form = CommentForm()
+	question_form = QuestionForm()
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form
 	})
 
 def muni_detail(request, slug):
@@ -113,6 +115,28 @@ def add_review(request, destination_id):
 			messages.error(request, "Error")
 	return redirect('destination_detail', slug=destination.slug)
 
+@login_required
+def add_question(request, destination_id):
+	
+	destination = get_object_or_404(Destination, pk=destination_id)
+	user_posted = False
+	if request.method=='POST':
+		question_form = QuestionForm(request.POST) 
+		
+		if question_form.is_valid():
+			message = question_form.cleaned_data['message']
+			user_name = request.user
+			question = Question()
+			question.user_name = user_name
+			question.destination = destination
+			question.message = message
+			question.pub_date = datetime.datetime.now()
+			question.save()
+			user_posted = True
+		else:
+			messages.error(request, "Error")
+	return redirect('destination_detail', slug=destination.slug)
+
 
 @login_required
 def update_profile(request):
@@ -160,7 +184,31 @@ class DeleteReview(View):
 			message = {"status": "error", "message":  "review id not found" }
 			
 		return http.HttpResponse(json.dumps(message), content_type="application/json")
+
+class DeleteQuestion(View):
+	print 'delete_comment'
+	def get_object(self, id):
+		try:
+			return Question.objects.get(id=id)
+		except Review.DoesNotExist:
+			raise Http404
 	
+	def get(self, request):
+		question_id = request.GET.get("questionId")
+		print "question"
+		print question_id
+		if question_id:
+			question = get_object_or_404(Question, id=question_id)
+			if question.user_name_id == request.user.id:
+				question.delete()
+				message = {"status": "success", "message":  "question deleted" }
+			else:
+				message = {"status": "error", "message":  "invalid user" }
+		else:
+			message = {"status": "error", "message":  "question id not found" }
+			
+		return http.HttpResponse(json.dumps(message), content_type="application/json")
+
 class DeleteComment(View):
 	print 'delete_comment'
 	def get_object(self, id):
@@ -215,6 +263,35 @@ def add_comment_to_review(request, destination_id, review_id):
 #	return redirect('destination_detail', slug=destination.slug)
 	return http.HttpResponse(json.dumps(message), content_type="application/json")
 
+@login_required
+def add_comment_to_question(request, destination_id, question_id):
+	print "destination_id"
+	question_id = request.GET.get("questionId")
+	destination_id = request.GET.get("destinationId")
+	destination = get_object_or_404(Destination, pk=destination_id)
+	if request.method =="GET":
+		comment_form = CommentForm(request.GET)
+		if request.GET.get('text'):
+#	   if comment_form.is_valid():
+#			text = comment_form.cleaned_data['text']
+			comment = Comment()
+			comment.text = request.GET.get('text')
+#          comment.text = text
+			comment.created_date = str(datetime.datetime.now())
+			comment.review_id = review_id
+			comment.user_id = request.user.id
+			comment.save()
+			data = {
+				"datetime": comment.created_date,
+				"username": request.user.username,
+				"text": comment.text,
+				"id": comment.id
+			}
+			message = {"status": "success", "message":  data }
+		else:
+			message = {"status": "error", "message":  "Please enter a comment."}
+#	return redirect('destination_detail', slug=destination.slug)
+	return http.HttpResponse(json.dumps(message), content_type="application/json")
 
 
 
