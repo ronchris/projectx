@@ -129,6 +129,22 @@ $(document).ready(function(){
 		$( "#tabs" ).tabs();
 	});
 	
+	// show error for not choosing stars
+	$("#reviewInput").click(function(e) {
+		var ratingDiv = $('.star-rating2');
+		var ratingInput = ratingDiv.children('input[name="score"]');
+		console.log(ratingInput.val());
+		if (!ratingInput.val() || !ratingInput.val().trim()) {
+			var errorDiv = $("#error-message-review");
+			errorDiv.html("Please add a review and a rating.");
+			errorDiv.css("visibility", "visible");
+			errorDiv.css("color", "red");
+			e.preventDefault();
+		}
+		
+		
+	});
+	
 });
 
 	
