@@ -13,6 +13,8 @@ from django.contrib.auth.models import User
 from django.http import Http404
 from django.db import transaction
 from django.utils import timezone
+from itertools import chain
+from operator import attrgetter
 import json
 import datetime
 
@@ -55,8 +57,13 @@ def destination_detail(request, slug, profile_id=None):
 	commentq_form = CommentQForm()
 	question_form = QuestionForm()
 	
+	reviews = destination.review_set.all()
+	questions = destination.question_set.all()
+	
+	result_list = sorted(chain(reviews, questions),key=attrgetter('pub_date'),reverse=True)
+	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form, 'commentq_form': commentq_form, 'commentqs': commentqs
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form, 'commentq_form': commentq_form, 'commentqs': commentqs, 'result_list': result_list
 	})
 
 
@@ -262,11 +269,13 @@ def add_comment_to_review(request, destination_id, review_id):
 			comment.review_id = review_id
 			comment.user_id = request.user.id
 			comment.save()
+			profile = Profile.objects.get(user_id = request.user.id)
 			data = {
 				"datetime": comment.created_date,
 				"username": request.user.username,
 				"text": comment.text,
-				"id": comment.id
+				"id": comment.id,
+				"image": profile.image.url
 			}
 			message = {"status": "success", "message":  data }
 		else:
@@ -293,11 +302,13 @@ def add_comment_to_question(request, destination_id, question_id):
 			commentq.question_id = question_id
 			commentq.user_id = request.user.id
 			commentq.save()
+			profile = Profile.objects.get(user_id = request.user.id)
 			data = {
 				"datetime": commentq.created_date,
 				"username": request.user.username,
 				"text": commentq.text,
-				"id": commentq.id
+				"id": commentq.id,
+				"image": profile.image.url
 			}
 			message = {"status": "success", "message":  data }
 		else:

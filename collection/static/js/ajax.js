@@ -110,6 +110,9 @@ $(document).ready(function(){
 			if (data && data.status == "success") {
 				var html = 	'<div class="comment--text" id="comment-' + 
 								  data.message.id + '">';
+				html += ' <img class="comment--profile--img" src="';
+				html += data.message.image;
+				html += '"height="45" width="45" />';
 				html += '<p>' + data.message.text + '</p>';
 				html += '<p> commented by ' + data.message.username + '</p>';
 				html += '<p> commented on ' + moment(data.message.datetime).format('LLL'); + '</p>';
@@ -169,6 +172,9 @@ $(document).ready(function(){
 			if (data && data.status == "success") {
 				var html = 	'<div class="comment--text" id="commentQ-' + 
 								  data.message.id + '">';
+				html += ' <img class="comment--profile--img" src="';
+				html += data.message.image;
+				html += '"height="45" width="45" />';
 				html += '<p>' + data.message.text + '</p>';
 				html += '<p> commented by ' + data.message.username + '</p>';
 				html += '<p> commented on ' + moment(data.message.datetime).format('LLL'); + '</p>';
@@ -190,7 +196,7 @@ $(document).ready(function(){
   $("body").on('click', ".delete_comment", deleteComment);
 	
   function deleteComment(e) {
-	return console.log($(this));
+//	return console.log($(this));
 	e.preventDefault();
 	var button = $(this);
 	console.log(button);

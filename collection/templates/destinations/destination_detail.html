@@ -78,9 +78,12 @@
 				{% if user.is_authenticated %}
 					<form action="{% url 'add_review' destination.id %}" method="post">
 						{% csrf_token %}
-						{{ form.as_p }}
-						<div class="star-rating2"></div>
-	<!--					<p class="rating--message--form"><strong>Have you visited this destination? Leave a rating, too!</strong></p>-->
+						<div class="review-form">
+							{{ form.as_p }}
+							<div class="star-rating2"></div>
+							<!--<p class="rating--message--form"><strong>Have you visited this destination? Leave a rating, too!</strong></p>-->
+						</div>
+						
 						<input id="reviewInput" class="review--by--post" type="submit" value="Post" />
 						{% if messages %}
 							{% for message in messages %}
@@ -116,7 +119,9 @@
 			{% endif %}
 		  </div>
 		</div>
-	
+
+		<!--{{ result_list }}-->
+		
 		<!--reviews-->
 		<div class="review-container">
 			{% if destination.review_set.all %}
@@ -155,7 +160,7 @@
 					<button class="comment--show-hide"><strong>Comment</strong></button>
 					<div class="comment--box">
 						<div class="commentId" id="review-{{ review.id }}">
-						{% for comment in comments reversed %}
+						{% for comment in comments  %}
 
 							{% if comment.review_id == review.id %}
 
@@ -239,11 +244,20 @@
 					<button class="comment--show-hide"><strong>Comment</strong></button>
 					<div class="comment--box">
 						<div class="commentQId" id="question-{{ question.id }}">
-						{% for commentq in commentqs reversed %}
+						{% for commentq in commentqs  %}
 
 							{% if commentq.question_id == question.id %}
 
 								<div class="comment--text" id="commentQ-{{ commentq.id }}">
+									{% for profile in profiles %}
+										{% if profile.user_id ==  commentq.user_id %}
+											{% if profile.image %}
+											 <img class="comment--profile--img" src="{{ profile.image.url }}" height="45" width="45" />
+											 {% else %}
+											 <img class="comment--profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="45" width="45" />
+											 {% endif %}
+										{% endif %}
+									{% endfor %}
 									<p>{{ commentq.text }}</p>
 									<p> commented by {{ commentq.user }}</p>
 									<p> commented on {{ commentq.created_date }}</p>
