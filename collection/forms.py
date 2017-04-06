@@ -8,7 +8,7 @@ class ReviewForm(ModelForm):
 		model = Review
 		fields = [ 'rating', 'comment']
 		widgets = {
-            'comment': Textarea(attrs={'cols': 40, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
+            'comment': Textarea(attrs={'cols': 35, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
         }
 	def __init__(self, *args, **kwargs):
 		super(ReviewForm, self).__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class QuestionForm(ModelForm):
 		model = Question
 		fields = [ 'message']
 		widgets = {
-            'message': Textarea(attrs={'cols': 40, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
+            'message': Textarea(attrs={'cols': 35, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
         }
 
 class UserForm(ModelForm):

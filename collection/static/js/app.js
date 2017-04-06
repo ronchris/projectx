@@ -129,7 +129,7 @@ $(document).ready(function(){
 		$( "#tabs" ).tabs();
 	});
 	
-	// show error for not choosing stars
+	// show error for not choosing stars on review form
 	$("#reviewInput").click(function(e) {
 		var ratingDiv = $('.star-rating2');
 		var ratingInput = ratingDiv.children('input[name="score"]');
@@ -141,8 +141,6 @@ $(document).ready(function(){
 			errorDiv.css("color", "red");
 			e.preventDefault();
 		}
-		
-		
 	});
 	
 });

@@ -65,25 +65,38 @@
 			<div class="about-center-text">NOTES</div>
 			<div class="about-line-right"></div>
 		</div>
+
 		
+		{% for profile in profiles %}
+			{% if profile.user_id == request.user.id %}
+				{% if profile.image %}
+				 <img class="form--profile--img" src="{{ profile.image.url }}" height="45" width="45" />
+				 {% else %}
+				 <img class="form--profile--img" src="{{ MEDIA_URL }}/profiles/default_300x.jpg" height="45" width="45" />
+				 {% endif %}
+			{% endif %}
+		{% endfor %}
+		
+		
+		{% if user.is_authenticated %}
 		<div id="tabs">
-		  <ul>
-			<li><a href="#tabs-1">Review</a></li>
-			<li><a href="#tabs-2">Question or Comment?</a></li>
-		  </ul>
-		  <div id="tabs-1">
-			<p class="review--form--title">Post destination review and rating</p>
-			{% if not user_posted %}
-			<div class="review-container" id="last--container">
-				{% if user.is_authenticated %}
+		  	<ul>
+				<li><a href="#tabs-1">Review</a></li>
+				<li><a href="#tabs-2">Question or Comment?</a></li>
+		  	</ul>
+			<div id="tabs-1">
+				<p class="review--form--title">Post destination review and rating</p>
+				{% if not user_posted %}
+				<div class="review-container" id="last--container">
+				
 					<form action="{% url 'add_review' destination.id %}" method="post">
-						{% csrf_token %}
+					{% csrf_token %}
 						<div class="review-form">
 							{{ form.as_p }}
 							<div class="star-rating2"></div>
 							<!--<p class="rating--message--form"><strong>Have you visited this destination? Leave a rating, too!</strong></p>-->
 						</div>
-						
+
 						<input id="reviewInput" class="review--by--post" type="submit" value="Post" />
 						<p id="error-message-review" style="visibility:hidden"></p>
 						{% if messages %}
@@ -92,10 +105,7 @@
 							{% endfor %}
 						{% endif %}
 					</form>
-				{% else %}
-					<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
-				{% endif %}
-			</div>
+				</div>
 			{% endif %}
 		  </div>
 		  <div id="tabs-2">
@@ -120,13 +130,22 @@
 			{% endif %}
 		  </div>
 		</div>
+		{% else %}
+			<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
+		{% endif %}
 
-		<!--{{ result_list }}-->
+<!--
+		{% for result in result_list %}
+			{{ result.comment }}
+			{{ result.rating }}
+			{{ result.message}}
+		{% endfor %}
+-->
 		
 		<!--reviews-->
 		<div class="review-container">
 			{% if destination.review_set.all %}
-			<div>				
+			<div>
 				<hr>
 				{% for review in destination.review_set.all reversed %}
 				<div class="review--box reviewId">
