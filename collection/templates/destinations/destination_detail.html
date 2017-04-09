@@ -50,7 +50,16 @@
 			{{ destination.average_rating | floatformat }}
 		</p>
 		<p class="added--by" id="review--count--num">{{ destination.review_set.count }} </p>
-			<p class="added--by" id="review--count">REVIEW{{ estination.review_set.count|length|pluralize|title  }}</p>
+			<p class="added--by" id="review--count">REVIEW{{ destination.review_set.count|length|pluralize|title  }}</p>
+		
+		<p class="added--by" id="review--count--num">{{ destination.saves }} </p>
+			<p class="added--by" id="review--count">SAVE{{ destination.saves|length|pluralize|title  }}</p>
+	
+		{% if user.username not in destination.get_savers %}
+		<button class="save--button saves" type="button" data-did="{{destination.id}}" style="background-color: gray; color: #ffffff">SAVE</button>
+		{% else %}
+		<button class="save--button saves" type="button" data-did="{{destination.id}}" style="background-color: #a2db68; color: #ffffff">SAVE</button>
+		{% endif %}
 		
 		<div class="row">
 			<div class="about-line-left"></div>
@@ -58,7 +67,7 @@
 			<div class="about-line-right"></div>
 		</div>
 		
-		<p class="destination--description">{{ destination.description }}</p>
+		<div class="destination--description">{{ destination.description|linebreaks }}</div>
 		
 		<div class="row">
 			<div class="about-line-left"></div>
@@ -177,6 +186,17 @@
 					{% endif %}
 					
 					<br>
+					
+					{% if user.username not in review.get_likers %}
+					<button type="button" class="likes fa fa-thumbs-up" data-rid="{{review.id}}" data-did="{{destination.id}}" style="color: gray"></button>
+
+					{% else %}
+					<button type="button" class="likes fa fa-thumbs-up" data-rid="{{review.id}}" data-did="{{destination.id}}"  style=" color:#a2db68"></button>
+					{% endif %}
+			
+					<p class="likes--count" data-prid="{{ review.id }}">{{ review.likes }}</p>
+			
+					
 					<button class="comment--show-hide"><strong>Comment</strong></button>
 					<div class="comment--box">
 						<div class="commentId" id="review-{{ review.id }}">

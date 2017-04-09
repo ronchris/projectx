@@ -287,6 +287,21 @@ img.thumbnail {
 	margin: 5% auto -2%;
 	color: #ffffff;
 }
+.save--button {
+	border-radius: 50px;
+    background-color: #a2db68;
+    padding: 1.5% 0%;
+    width: 6%;
+    min-width: 100px;
+    font-size: 1.2em;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -3%;
+    color: #ffffff;
+    border: none;
+    float: right;
+}
 
 /*login*/
 .login--leftblock {
@@ -473,7 +488,7 @@ img.thumbnail {
 }
 .destination--description {
 	font-size: 1.2em; 
-	padding-top: 8%;
+	padding-top: 3%;
 	color: #687482;
 }
 h6.destination--sub-heading {

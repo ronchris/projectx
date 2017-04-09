@@ -254,6 +254,73 @@ $(document).ready(function(){
 		});//end ajax
    }
 	
+	// like/dislikes
+	$("body").on('click', ".likes", likedislikeRequest);
+	
+	function likedislikeRequest() {
+		var likesCount = $(this).data("rid");
+		var colorButton = $(this).css('color');
+		console.log(colorButton);
+		if (colorButton == 'rgb(128, 128, 128)') {
+			console.log("sending the like ajax request");
+			$.ajax({
+				type: "GET",
+				url: "/destinations/" + $(this).data('did') + "/add_like_to_review/" + $(this).data('rid'),
+				success: function (e) {
+					console.log(e);
+
+					console.log(likesCount);
+					$('.likes--count').filter("[data-prid=" +likesCount+"]").text(e.likes);
+					$('.likes').filter("[data-rid=" +likesCount+"]").css("color", "#a2db68");
+				}
+			});
+		}
+		else {
+			console.log("sending the dislike ajax request");
+			$.ajax({
+				type: "GET",
+				url: "/destinations/" + $(this).data('did') + "/add_dislike_to_review/" + $(this).data('rid'),
+				success: function (e) {
+					console.log(e);
+
+					console.log(likesCount);
+					$('.likes--count').filter("[data-prid=" +likesCount+"]").text(e.likes);
+					$('.likes').filter("[data-rid=" +likesCount+"]").css("color", "gray");
+				}
+			});
+		}
+	};
+	
+	// saves/unsaves
+	$("body").on('click', ".saves", saveUnsaveRequest);
+	
+	function saveUnsaveRequest() {
+		var colorButton = $(this).css('background-color');
+		console.log(colorButton);
+		if (colorButton == 'rgb(128, 128, 128)') {
+			console.log("sending the save ajax request");
+			$.ajax({
+				type: "GET",
+				url: "/destinations/" + $(this).data('did') + "/save_destination/",
+				success: function (e) {
+					console.log(e);
+					$('.saves').css("background-color", "#a2db68");
+				}
+			});
+		}
+		else {
+			console.log("sending the unsave ajax request");
+			$.ajax({
+				type: "GET",
+				url: "/destinations/" + $(this).data('did') + "/unsave_destination/",
+				success: function (e) {
+					console.log(e);
+					$('.saves').css("background-color", "gray");
+				}
+			});
+		}
+	};
+	
 });
 
 function searchSuccess(data, textStatus, jqXHR) {

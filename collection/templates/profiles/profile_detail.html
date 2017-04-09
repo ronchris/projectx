@@ -31,24 +31,15 @@
 			  </div>
 			{% endfor %}
 		 </ul>
-		
-		Comments
-		{% for comment in comments %}
-			{% if comment.review_id == review.id %}
-
-				<p>{{ comment.text }}</p>
-				<p> commented by {{ comment.user }}</p>
-				<p> commented on {{ comment.created_date }}</p>
-
-			{% endif %}
-
-			{% if profile.user.id == comment.user_id %}
-				<!--<a class="edit_review">Edit</a>-->
-				<a class="delete_comment" data-commentId={{ comment.id }}>Delete</a>
-			{% endif %}
-		{% endfor %}
-	  
 	  {% endif %}
+		
+		
+	{% for destination in destination_saves %}
+		<a href="{% url 'destination_detail' destination.slug %}">{{ destination.name }}
+		   <img src="{{ MEDIA_URL }}/{{ destination.image }}" height="100" width="100" /></a>
+	{% endfor %}
+		
+		{{ destination_saves|length }}
 		
 	</ul>
 	{% if request.user.id == profile.user.id %}

@@ -56,7 +56,7 @@ def destination_detail(request, slug, profile_id=None):
 	comment_form = CommentForm()
 	commentq_form = CommentQForm()
 	question_form = QuestionForm()
-	
+
 	reviews = destination.review_set.all()
 	questions = destination.question_set.all()
 	
@@ -100,9 +100,12 @@ def profile_detail(request, profile_id=None):
 	print profile.location
 	print profile.user.username
 	reviews = Review.objects.filter(user_name_id=profile_id)
+	user = User(pk = request.user.id)
+	destination_saves = user.savers.all()
 	
 	return render(request, 'profiles/profile_detail.html', {
-	'profile': profile,  'reviews': reviews, 'user': request.user
+	'profile': profile,  'reviews': reviews, 'user': request.user,
+		'destination_saves':destination_saves
 	})
 
 
@@ -340,6 +343,73 @@ class DeleteCommentQ(View):
 			message = {"status": "error", "message":  "comment id not found" }
 			
 		return http.HttpResponse(json.dumps(message), content_type="application/json")
+	
 
+@login_required
+def add_like_to_review(request, destination_id, review_id):
+	"""
+	This view adds the liker to the review.
+	"""
+	destination = Destination.objects.get(pk=destination_id)
+	review = Review.objects.get(Q(destination=destination) & Q(pk=review_id))
+	current_user = User.objects.get(id=request.user.id)
+	likers = review.likers.all()
+	if current_user not in likers:
+		review.likes +=1
+		review.likers.add(current_user)
+		review.save()
+	data = {
+			"likes": review.likes
+	}
+	return http.HttpResponse(json.dumps(data), content_type="application/json")
 
+@login_required
+def add_dislike_to_review(request, destination_id, review_id):
+	destination = Destination.objects.get(pk=destination_id)
+	review = Review.objects.get(Q(destination=destination) & Q(pk=review_id))
+	current_user = User.objects.get(id=request.user.id)
+	likers = review.likers.all()
+	if current_user in likers:
+		review.likes -=1
+		review.likers.remove(current_user)
+		review.save()
+	data = {
+			"likes": review.likes
+	}
+	return http.HttpResponse(json.dumps(data), content_type="application/json")
+	
+	
+@login_required
+def save_destination(request, destination_id):
+	"""
+	This view adds the saver of the destination
+	"""
+	destination = Destination.objects.get(pk=destination_id)
+	current_user = User.objects.get(id=request.user.id)
+	savers = destination.savers.all()
+	if current_user not in savers:
+		destination.saves+=1
+		destination.savers.add(current_user)
+		destination.save()
+	data = {
+			"saves": destination.saves
+	}
+	return http.HttpResponse(json.dumps(data), content_type="application/json")
 
+@login_required
+def unsave_destination(request, destination_id):
+	"""
+	This view removes the saver of the destination
+	"""
+	destination = Destination.objects.get(pk=destination_id)
+	current_user = User.objects.get(id=request.user.id)
+	savers = destination.savers.all()
+	if current_user in savers:
+		destination.saves -=1
+		destination.savers.remove(current_user)
+		destination.save()
+	data = {
+			"saves": destination.saves
+	}
+	return http.HttpResponse(json.dumps(data), content_type="application/json")
+	

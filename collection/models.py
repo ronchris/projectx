@@ -56,6 +56,16 @@ class Destination(models.Model):
 	slug = models.SlugField(unique=True)
 	image = models.ImageField()
 	user = models.OneToOneField(User, blank=True, null=True)
+	saves = models.IntegerField(default=0)
+	savers = models.ManyToManyField(User, related_name="savers")
+	
+	def get_savers(self):
+		saver_list = []
+		for saver in self.savers.all():
+			#print 'saver',saver
+			saver_list.append(saver.username)
+		return saver_list
+	
 	
 	def average_rating(self):
 		all_ratings = map(lambda x: x.rating, self.review_set.all())
@@ -85,6 +95,16 @@ class Review(models.Model):
 	user_name = models.ForeignKey(User)
 	comment = models.TextField(blank=False)
 	rating = models.IntegerField(choices=RATING_CHOICES, blank=False)
+	likes = models.IntegerField(default=0)
+	likers = models.ManyToManyField(User, related_name="likers")
+	
+	def get_likers(self):
+		liker_list = []
+		for liker in self.likers.all():
+			#print 'liker',liker
+			liker_list.append(liker.username)
+		return liker_list
+	
 	
 class Question(models.Model):
 	destination = models.ForeignKey(Destination)
