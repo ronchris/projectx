@@ -52,8 +52,8 @@
 		<p class="added--by" id="review--count--num">{{ destination.review_set.count }} </p>
 			<p class="added--by" id="review--count">REVIEW{{ destination.review_set.count|length|pluralize|title  }}</p>
 		
-		<p class="added--by" id="review--count--num">{{ destination.saves }} </p>
-			<p class="added--by" id="review--count">SAVE{{ destination.saves|length|pluralize|title  }}</p>
+		<p class="added--by" id="destination--save--count--num">{{ destination.saves }} </p>
+			<p class="added--by" id="destination--save--count">SAVE{{ destination.saves|length|pluralize|title  }}</p>
 	
 		{% if user.username not in destination.get_savers %}
 		<button class="save--button saves" type="button" data-did="{{destination.id}}" style="background-color: gray; color: #ffffff">SAVE</button>
@@ -88,13 +88,8 @@
 		
 		
 		{% if user.is_authenticated %}
-		<div id="tabs">
-		  	<ul>
-				<li><a href="#tabs-1">Review</a></li>
-				<li><a href="#tabs-2">Question or Comment?</a></li>
-		  	</ul>
-			<div id="tabs-1">
-				<p class="review--form--title">Post destination review and rating</p>
+		
+		<p class="review--form--title">Post destination review and rating</p>
 				{% if not user_posted %}
 				<div class="review-container" id="last--container">
 				
@@ -116,7 +111,17 @@
 					</form>
 				</div>
 			{% endif %}
+		
+<!--	
+		<div id="tabs">
+		  	<ul>
+				<li><a href="#tabs-1">Review</a></li>
+				<li><a href="#tabs-2">Question or Comment?</a></li>
+		  	</ul>
+			<div id="tabs-1">
+				
 		  </div>
+
 		  <div id="tabs-2">
 			<p class="question--form--title">Ask a question or leave a comment</p>
 			{% if not user_posted %}
@@ -142,6 +147,7 @@
 		{% else %}
 			<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
 		{% endif %}
+-->
 
 <!--
 		{% for result in result_list %}
@@ -251,7 +257,7 @@
 		</div>
 		
 		<!--questions-->
-		<div class="review-container">
+		<!-- <div class="review-container">
 			{% if destination.question_set.all %}
 			<div>				
 				{% for question in destination.question_set.all reversed %}
@@ -276,7 +282,7 @@
 					<p class="review--text">{{ question.message }}</p>
 
 					{% if request.user.id == question.user_name_id %}
-						<!--<a class="edit_review">Edit</a>-->
+						<a class="edit_review">Edit</a>
 						<a class="delete_question" data-questionId={{ question.id }}>Delete</a>
 					{% endif %}
 					
@@ -303,7 +309,7 @@
 									<p> commented on {{ commentq.created_date }}</p>
 								
 									{% if request.user.id == commentq.user_id %}
-										<!--<a class="edit_review">Edit</a>-->
+										<a class="edit_review">Edit</a>
 										<a class="delete_commentq" data-commentQId={{ commentq.id }}>Delete</a>
 									{% endif %}
 								</div>
@@ -331,7 +337,7 @@
 			{% else %}
 			<p>No questions or comments for this destination yet</p>
 			{% endif %}
-		</div>
+		</div>-->
 		
 	</div>
 	<div class="large-4 columns">

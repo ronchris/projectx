@@ -10,14 +10,17 @@
 <div class="login--leftblock">
 	<h1>likana</h1>
 	<p>Kamusta?</p>
-	<p>Welcome back! We can't waitfor you to search and plan your next trip!</p>
+	<p>Welcome back! We can't wait for you to search and plan your next trip!</p>
 </div>
 <div class="login--rightblock">
 	<div class="position--absolute--leftblock">
 		<a href="{% url 'home' %}"><img src="/media/login/exit_login.png" height="75" width="75" /></a>
 	</div>
 	<h1>Login</h1>
-	<form role="form" action="" method="post">
+	{% if error %}
+	You entered the wrong credentials
+	{% endif %}
+	<form role="form" action="{% url 'auth_login' %}" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Submit" />

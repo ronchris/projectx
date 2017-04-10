@@ -18,9 +18,9 @@
 		<a href="{% url 'home' %}"><img src="/media/login/exit_login.png" height="75" width="75" /></a>
 	</div>
 	<h1>Registration Form</h1>
-			<form role="form" action="" method="post">
+			<form role="form" action="{% url 'registration_register' %}" method="post">
 				{% csrf_token %}
-				{{ form.as_p }}
+				{{ form_t }}
 				<input type="submit" value="Submit" />
 			</form>
 </div>

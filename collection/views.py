@@ -1,12 +1,13 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django import http
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect 
 from django.core.urlresolvers import reverse
 from collection.models import Destination, Muni, Province, Review, Profile, Comment, Question, CommentQ
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.db.models import Q
 from collection.forms import ReviewForm, UserForm, ProfileForm, CommentForm, QuestionForm, CommentQForm
+from collection.forms import UserForm, LoginForm
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
@@ -17,6 +18,71 @@ from itertools import chain
 from operator import attrgetter
 import json
 import datetime
+from django.template.context import RequestContext
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import auth
+
+
+@csrf_exempt
+def register_view(request):
+	if request.method == "POST":
+		print request.POST
+		form = UserForm(request.POST)
+		if form.is_valid():
+			user = User.objects.create_user(
+				form.cleaned_data["username"],
+				form.cleaned_data["email"],
+				form.cleaned_data["password"],
+			)
+			
+			user.is_active = False
+			user.first_name = form.cleaned_data['first_name']
+			user.last_name = form.cleaned_data['last_name']
+			user.save()
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user = auth.authenticate(username=username, password=password)
+			auth.login(request, user)
+			return redirect("home")
+		else:
+			username = request.POST.get('username', '')
+			password = request.POST.get('password', '')
+        	user = auth.authenticate(username=username, password=password)
+        	if user is not None and user.is_active:
+            	# Correct password, and the user is marked "active"
+				auth.login(request, user)
+            	# Redirect to a success page.
+            	return redirect("home")
+	else:
+		# Show an error page
+		form = UserForm()
+           
+        return render(request, 'registration/registration_form.html', {'form_t':form})
+	
+	
+@csrf_exempt
+def login_view(request):
+	if request.method=='POST':
+		print 'True'
+		username = request.POST['username']
+		password = request.POST['password']
+		user = auth.authenticate(username=username, password=password)
+		if user:
+			auth.login(request, user)
+			return redirect("home")
+		else:
+			print 'False'
+			form = LoginForm()
+			return render(request,'registration/login.html',{'error':1, 'form':form})
+	else:
+		form = LoginForm()
+		return render(request,'registration/login.html',{'form':form})
+
+	
+@login_required
+def logout_view(request):
+    auth.logout(request)
+    return render(request,'registration/logout.html')
 
 
 class IndexView(View):

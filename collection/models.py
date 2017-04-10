@@ -4,9 +4,10 @@ from django.db.models.signals import post_save
 from registration.signals import user_registered
 from django.dispatch import receiver
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import numpy as np
 
-
+	
 class Province(models.Model):
 	name = models.CharField(max_length=255)
 	author = models.CharField(max_length=255, blank=True, null=True)
@@ -138,5 +139,3 @@ def create_user_profile(sender, user, request, **kwargs):
 	print "create_user_profile"
 	Profile.objects.create(user=user)
 user_registered.connect(create_user_profile)
-
-	

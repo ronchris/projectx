@@ -12,7 +12,7 @@ header{
 	padding-top: 4%;
 }
 label {
-	display: none;
+/*	display: none;*/
 }
 button:hover {
 	opacity: 0.8;
@@ -288,7 +288,7 @@ img.thumbnail {
 	color: #ffffff;
 }
 .save--button {
-	border-radius: 50px;
+    border-radius: 50px;
     background-color: #a2db68;
     padding: 1.5% 0%;
     width: 6%;
@@ -297,10 +297,11 @@ img.thumbnail {
     white-space: nowrap;
     font-weight: bold;
     text-align: center;
-    margin-top: -3%;
+    margin-top: -20%;
     color: #ffffff;
     border: none;
     float: right;
+    margin-left: -5%;
 }
 
 /*login*/
@@ -813,6 +814,18 @@ h6.destination--sub-heading {
 #review--count {
     margin-top: -16%;
     margin-left: 43%;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+#destination--save--count--num {
+	font-size: 2em;
+	margin-top: -7%;
+    margin-left: 63%;
+	margin-bottom: 15%;
+}
+#destination--save--count {
+    margin-top: -16%;
+    margin-left: 63%;
 	font-size: 1.2em;
 	font-weight: normal;
 }

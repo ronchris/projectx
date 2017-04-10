@@ -305,6 +305,7 @@ $(document).ready(function(){
 				success: function (e) {
 					console.log(e);
 					$('.saves').css("background-color", "#a2db68");
+					$('.saves').text("SAVED");
 				}
 			});
 		}

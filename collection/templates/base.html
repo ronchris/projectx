@@ -59,7 +59,7 @@
 				<div class="top-bar-right">
 					<ul class="menu">
 						{% if user.is_authenticated %}
-						<li><a href="{% url 'profile_detail' profile_id=user.id %}">{{ user }}</a></li>
+						<li><a href="{% url 'profile_detail' profile_id=user.id %}">{{ user.first_name }} {{ user.last_name }}</a></li>
 						<li>
 							<a href="{% url 'auth_logout' %}">Logout</a>
 						</li>

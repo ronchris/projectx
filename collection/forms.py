@@ -1,8 +1,9 @@
 from django.forms import ModelForm, Textarea
 from collection.models import Review, Profile, Comment, Question, CommentQ
 from django.contrib.auth.models import User
+from django import forms
 
-
+		
 class ReviewForm(ModelForm):
 	class Meta:
 		model = Review
@@ -24,11 +25,26 @@ class QuestionForm(ModelForm):
             'message': Textarea(attrs={'cols': 35, 'rows': 5, 'placeholder': 'What would you like to say?', 'required': True}),
         }
 
-class UserForm(ModelForm):
-	class Meta:
-		model = User
-		fields = ('first_name', 'last_name', 'email')
+class UserForm(forms.ModelForm):
+    class Meta(object):
+        model = User
+        fields = ["username", "email", "password", "first_name", "last_name"]
+        widgets = {
+            "username":forms.TextInput(attrs={'placeholder': 'Username'}),
+            "email":forms.EmailInput(attrs={'placeholder': 'E-mail'}),
+            "password":forms.PasswordInput(attrs={'placeholder': 'Password'})
+        }
 
+class LoginForm(UserForm):
+    class Meta(object):
+        model = User
+        fields = ["username", "password"]
+        widgets = {
+            "username":forms.TextInput(attrs={'placeholder': 'Username'}),
+            "password":forms.PasswordInput(attrs={'placeholder': 'Password'})
+        }
+		
+		
 class ProfileForm(ModelForm):
     class Meta:
 		model = Profile

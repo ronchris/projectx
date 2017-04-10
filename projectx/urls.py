@@ -18,6 +18,7 @@ from django.contrib import admin
 from collection import views
 from django.conf import settings
 from django.conf.urls.static import static
+from registration.views import RegistrationView
 
 urlpatterns = [
 	url(r'^$', views.IndexView.as_view(), name='home'),
@@ -27,7 +28,10 @@ urlpatterns = [
 	url(r'^profiles/(?P<profile_id>[-\d]+)/$', views.profile_detail, name='profile_detail'),
 	url(r'^municipalities/(?P<slug>[-\w]+)/$', views.muni_detail, name='muni_detail'),
 	url(r'^provinces/(?P<slug>[-\w]+)/$', views.province_detail, name='province_detail'),
-	url(r'^accounts/', include('registration.backends.simple.urls')),
+	url(r'^register/$', views.register_view, name='registration_register'),
+	url(r'^login/$', views.login_view, name='auth_login'),
+	url(r'^logout/$', views.logout_view, name='auth_logout'),
+	#url(r'^accounts/', include('registration.backends.simple.urls')),
 	url(r'^destinations/(?P<destination_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
 	url(r'^destinations/(?P<destination_id>[0-9]+)/add_question/$', views.add_question, name='add_question'),
 	url(r'^destinations/(?P<destination_id>[0-9]+)/add_comment_to_review/(?P<review_id>[0-9]+)$', views.add_comment_to_review, name='add_comment_to_review'),
