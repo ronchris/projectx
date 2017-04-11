@@ -122,6 +122,7 @@ def destination_detail(request, slug, profile_id=None):
 	comment_form = CommentForm()
 	commentq_form = CommentQForm()
 	question_form = QuestionForm()
+	users = User.objects.all()
 
 	reviews = destination.review_set.all()
 	questions = destination.question_set.all()
@@ -129,7 +130,7 @@ def destination_detail(request, slug, profile_id=None):
 	result_list = sorted(chain(reviews, questions),key=attrgetter('pub_date'),reverse=True)
 	
 	return render(request, 'destinations/destination_detail.html', {
-	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form, 'commentq_form': commentq_form, 'commentqs': commentqs, 'result_list': result_list
+	'destination': destination, 'uploads': uploads, 'form': form, 'profiles': profiles, 'comments': comments, 'comment_form': comment_form, 'question_form': question_form, 'commentq_form': commentq_form, 'commentqs': commentqs, 'result_list': result_list, 'users': users
 	})
 
 

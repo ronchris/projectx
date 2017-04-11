@@ -24,7 +24,11 @@
 		<p class="coords">{{ destination.coords }}</p>
 		<p class="posted--by">POSTED BY:</p>
 		<p class="posted--by--name">
-			<a href="{% url 'profile_detail' profile_id=destination.user.id %}">{{ destination.user }}</a>
+			{% for user in users %}
+				{% if destination.user.id == user.id %}
+					<a href="{% url 'profile_detail' profile_id=destination.user.id %}">{{ user.first_name }}  {{ user.last_name }}</a>
+				{% endif %}
+			{% endfor %}
 		</p>
 		<p class="profile--img">{% for profile in profiles %}
 					{% if profile.user_id ==  destination.user.id %}
@@ -173,7 +177,11 @@
 							 {% endif %}
 						{% endif %}
 					{% endfor %}
-					<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.user_name_id %}">{{ review.user_name }}</a></p>
+						{% for user in users %}
+							{% if review.user_name_id == user.id %}
+							<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.user_name_id %}">{{ user.first_name }} {{ user.last_name }}</a></p>
+							{% endif %}
+						{% endfor %}
 						{% if review.rating > 0 %}
 						<div class="star-rating3" data-score="{{review.rating}}"></div>
 						{% else %}
@@ -220,8 +228,15 @@
 											 {% endif %}
 										{% endif %}
 									{% endfor %}
+									
 									<p>{{ comment.text }}</p>
-									<p>{{ comment.user }}</p>
+									
+									{% for user in users %}
+										{% if comment.user_id == user.id %}
+											<p>{{ user.first_name }} {{ user.last_name }}</p>
+										{% endif %}
+									{% endfor %}
+									
 									<p>{{ comment.created_date }}</p>
 								
 									{% if request.user.id == comment.user_id %}
