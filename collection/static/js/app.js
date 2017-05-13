@@ -143,6 +143,10 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('a#myModal').on('click', function(){
+  		$(this).next('.reveal-modal').foundation('reveal', 'open');
+	});
+	
 });
 
 	

@@ -248,7 +248,7 @@ def update_profile(request):
 
 		
 class DeleteReview(View):
-	print 'delete_comment'
+	print 'delete_review'
 	def get_object(self, id):
 		try:
 			return Review.objects.get(id=id)

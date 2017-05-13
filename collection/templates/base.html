@@ -25,7 +25,8 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.reveal.js"></script>	
 		<script type="text/javascript" src="{% static 'js/google-maps.js' %}"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_B9Chqe56-Wb96kZ7E4wSzeqVj5ypUH4"></script>
 		<script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
@@ -43,7 +44,7 @@
 						<li class="menu-text">
 							<a href="{% url 'home' %}">likana</a>
 						</li>
-						<li><img src="http://www.mosms.ir/Images/search.png" height="20" width ="20" /></li>
+						<li><img src="https://www.picodash.com/icon_search.svg" height="20" width ="20" /></li>
 						<li>
 							<form action=""  method="get">
 								{% csrf_token %}

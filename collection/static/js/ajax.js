@@ -33,7 +33,7 @@ $(document).ready(function(){
 		success: function(data) {
 			console.log(data);
 			if (data && data.status == "success") {
-				button.parents(".reviewId").remove();
+				$("#" + reviewId).remove();
 			}
 		},
 		error: function(error) {

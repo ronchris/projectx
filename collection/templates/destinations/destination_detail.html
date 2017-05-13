@@ -151,7 +151,6 @@
 		{% else %}
 			<p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a review.</p>
 		{% endif %}
--->
 
 <!--
 		{% for result in result_list %}
@@ -167,7 +166,7 @@
 			<div>
 				<hr>
 				{% for review in destination.review_set.all reversed %}
-				<div class="review--box reviewId">
+				<div class="review--box reviewId" id={{ review.id }}>
 					{% for profile in profiles %}
 						{% if profile.user_id ==  review.user_name_id %}
 							{% if profile.image %}
@@ -177,26 +176,41 @@
 							 {% endif %}
 						{% endif %}
 					{% endfor %}
-						{% for user in users %}
-							{% if review.user_name_id == user.id %}
-							<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.user_name_id %}">{{ user.first_name }} {{ user.last_name }}</a></p>
-							{% endif %}
-						{% endfor %}
-						{% if review.rating > 0 %}
-						<div class="star-rating3" data-score="{{review.rating}}"></div>
-						{% else %}
+					{% for user in users %}
+						{% if review.user_name_id == user.id %}
+						<p class="added--by--submit"><a href="{% url 'profile_detail' profile_id=review.user_name_id %}">{{ user.first_name }} {{ user.last_name }}</a></p>
 						{% endif %}
+					{% endfor %}
+					
+					{% if review.rating > 0 %}
+						<div class="star-rating3" data-score="{{review.rating}}"></div>
+					{% else %}
+					{% endif %}
+					
 					{% for profile in profiles %}
 						{% if profile.user_id ==  review.user_name_id %}
 							<p class="review--profile-location">{{ profile.location }}</p>
 						{% endif %}
 					{% endfor %}
+					
 					<p class="review--date--pub">{{ review.pub_date }}</p>
 					<p class="review--text">{{ review.comment }}</p>
 					
 					{% if request.user.id == review.user_name_id %}
-						<!--<a class="edit_review">Edit</a>-->
-						<a class="delete_review" data-reviewId={{ review.id }}>Delete</a>
+					<!--<a class="edit_review">Edit</a>-->
+						
+							
+					<a data-open="exampleModal1">Delete</a>
+
+					
+					<div class="reveal" id="exampleModal1" data-reveal>
+					  <p>Are you sure you want to delete?</p>
+					  <a class="delete_review" data-reviewId={{ review.id }} class="close-button" data-close aria-label="Close modal" type="button">Yes</a>
+					  <a data-close aria-label="Close modal" >Cancel</a>
+					  <button class="close-button" data-close aria-label="Close modal" type="button">
+					  <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
 					{% endif %}
 					
 					<br>
@@ -212,6 +226,7 @@
 			
 					
 					<button class="comment--show-hide"><strong>Comment</strong></button>
+					{% if comments %}
 					<div class="comment--box">
 						<div class="commentId" id="review-{{ review.id }}">
 						{% for comment in comments  %}
@@ -244,7 +259,7 @@
 										<a class="delete_comment" data-commentId={{ comment.id }}>Delete</a>
 									{% endif %}
 								</div>
-
+					
 							{% endif %}
 
 						{% endfor %}
@@ -261,7 +276,11 @@
 						{% endif %}
 				
 					</div>
+					{% else %}
+
+					<p>No comments added.</p>
 					
+					{% endif %}
 				</div>
 				{% endfor %}
 			
